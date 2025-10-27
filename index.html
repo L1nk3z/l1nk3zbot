@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Мини-приложение Telegram</title>
+    <title>Меню Web App Telegram</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -20,16 +20,17 @@
         h1 {
             color: #0088cc;
             margin-bottom: 40px;
+            text-align: center;
         }
 
         .menu-button {
-            width: 200px;
+            width: 220px;
             padding: 15px 0;
             font-size: 18px;
             background: #0088cc;
             color: white;
             border: none;
-            border-radius: 6px;
+            border-radius: 8px;
             cursor: pointer;
             margin-bottom: 15px;
             transition: background 0.3s;
@@ -43,35 +44,31 @@
 <body>
     <h1>Меню приложения</h1>
 
-    <button class="menu-button" onclick="handleClick('numbers')">Номера</button>
-    <button class="menu-button" onclick="handleClick('assistant')">Помощник</button>
-    <button class="menu-button" onclick="handleClick('grain')">Зерно</button>
-    <button class="menu-button" onclick="closeWebApp()">Закрыть</button>
+    <button class="menu-button" onclick="sendToBot('📞 Номера')">📞 Номера</button>
+    <button class="menu-button" onclick="sendToBot('💼 Помощник')">💼 Помощник</button>
+    <button class="menu-button" onclick="sendToBot('📦 Все о зерне')">📦 Зерно</button>
+    <button class="menu-button" onclick="sendToBot('📷 Бот Сёрфа')">📷 Бот Сёрфа</button>
+    <button class="menu-button" onclick="closeWebApp()">❌ Закрыть</button>
 
     <script>
-        // Telegram Web App API
-        if (window.TelegramWebApp) {
-            const tg = window.TelegramWebApp;
+        // Проверяем наличие Telegram Web App API
+        const tg = window.TelegramWebApp;
+        if (tg) {
             tg.expand(); // Расширяем на весь экран
         }
 
-        function closeWebApp() {
-            if (window.TelegramWebApp) {
-                window.TelegramWebApp.close();
+        // Отправка действия боту через WebAppData
+        function sendToBot(action) {
+            if (tg) {
+                tg.sendData(action); // это попадёт в update.Message.WebAppData.Data
+                tg.close(); // закрываем после отправки (опционально)
             }
         }
 
-        function handleClick(action) {
-            switch(action) {
-                case 'numbers':
-                    alert('Вы выбрали Номера');
-                    break;
-                case 'assistant':
-                    alert('Вы выбрали Помощник');
-                    break;
-                case 'grain':
-                    alert('Вы выбрали Зерно');
-                    break;
+        // Закрытие Web App
+        function closeWebApp() {
+            if (tg) {
+                tg.close();
             }
         }
     </script>
