@@ -6,55 +6,112 @@
     <title>Меню Web App Telegram</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
         body {
             font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            padding-top: 50px;
-            height: 100vh;
-            margin: 0;
             background: #f5f5f5;
+            color: #333;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
         }
 
         h1 {
             color: #0088cc;
-            margin-bottom: 40px;
+            margin-bottom: 20px;
             text-align: center;
+            font-size: 20px;
         }
 
         .menu-button {
-            width: 220px;
-            padding: 15px 0;
-            font-size: 18px;
+            width: 100%;
+            padding: 15px;
+            font-size: 16px;
             background: #0088cc;
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             cursor: pointer;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
             transition: background 0.3s;
         }
 
         .menu-button:hover {
             background: #006699;
         }
-        
+
+        .back-button {
+            background: #6c757d;
+        }
+
+        .back-button:hover {
+            background: #545b62;
+        }
+
+        .close-button {
+            background: #dc3545;
+        }
+
+        .close-button:hover {
+            background: #c82333;
+        }
+
+        .content-section {
+            display: none;
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .phone-item {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .phone-item:hover {
+            background: #f8f9fa;
+        }
+
+        .phone-item:last-child {
+            border-bottom: none;
+        }
+
+        .phone-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .phone-number {
+            color: #0088cc;
+            font-size: 14px;
+        }
+
         .status {
-            margin-top: 20px;
             padding: 10px;
             border-radius: 5px;
             text-align: center;
+            margin-bottom: 10px;
             font-size: 14px;
         }
-        
+
         .success {
             background: #d4edda;
             color: #155724;
             border: 1px solid #c3e6cb;
         }
-        
+
         .error {
             background: #f8d7da;
             color: #721c24;
@@ -65,28 +122,181 @@
             background: #d1ecf1;
             color: #0c5460;
             border: 1px solid #bee5eb;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             padding: 10px;
             border-radius: 5px;
             text-align: center;
             font-size: 12px;
         }
+
+        .section-title {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #0088cc;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
-    <div class="info">
-        🌐 Web App меню - выберите нужный раздел
-    </div>
-    
-    <h1>Меню приложения</h1>
+    <div class="container">
+        <!-- Главное меню -->
+        <div id="main-menu" class="content-section" style="display: block;">
+            <h1>🍵 Surf Coffee Assistant</h1>
+            <div class="info">
+                Выберите нужный раздел меню
+            </div>
+            
+            <button class="menu-button" onclick="showSection('phones')">📞 Номера телефонов</button>
+            <button class="menu-button" onclick="showSection('assistant')">💼 Помощник</button>
+            <button class="menu-button" onclick="showSection('grain')">📦 Все о зерне</button>
+            <button class="menu-button" onclick="showQR()">📷 Бот Сёрфа</button>
+            <button class="menu-button close-button" onclick="closeWebApp()">❌ Закрыть</button>
+        </div>
 
-    <button class="menu-button" onclick="sendToBot('📞 Номера')">📞 Номера</button>
-    <button class="menu-button" onclick="sendToBot('💼 Помощник')">💼 Помощник</button>
-    <button class="menu-button" onclick="sendToBot('📦 Все о зерне')">📦 Все о зерне</button>
-    <button class="menu-button" onclick="sendToBot('📷 Бот Сёрфа')">📷 Бот Сёрфа</button>
-    <button class="menu-button" onclick="closeWebApp()" style="background: #dc3545;">❌ Закрыть</button>
-    
-    <div id="status" class="status" style="display: none;"></div>
+        <!-- Раздел номеров -->
+        <div id="phones-section" class="content-section">
+            <div class="section-title">📞 Номера телефонов</div>
+            
+            <button class="menu-button back-button" onclick="showSection('main-menu')">⬅️ Назад</button>
+            
+            <button class="menu-button" onclick="showSection('barista')">👨‍🍳 Бариста</button>
+            <button class="menu-button" onclick="showSection('services')">🛡️ Спец Службы</button>
+            <button class="menu-button" onclick="showSection('coffeeshops')">☕ Кофейни Surf</button>
+        </div>
+
+        <!-- Бариста -->
+        <div id="barista-section" class="content-section">
+            <div class="section-title">👨‍🍳 Бариста</div>
+            <button class="menu-button back-button" onclick="showSection('phones')">⬅️ Назад</button>
+            
+            <div class="phone-item" onclick="showPhone('Евгений', '+79867227900')">
+                <div class="phone-name">Евгений</div>
+                <div class="phone-number">+7 986 722-79-00</div>
+            </div>
+            <div class="phone-item" onclick="showPhone('Алина Менеджер', '+79872631390')">
+                <div class="phone-name">Алина Менеджер</div>
+                <div class="phone-number">+7 987 263-13-90</div>
+            </div>
+            <div class="phone-item" onclick="showPhone('Алина Младшая', '+79965718940')">
+                <div class="phone-name">Алина Младшая</div>
+                <div class="phone-number">+7 996 571-89-40</div>
+            </div>
+            <div class="phone-item" onclick="showPhone('Анджелика', '+79376321662')">
+                <div class="phone-name">Анджелика</div>
+                <div class="phone-number">+7 937 632-16-62</div>
+            </div>
+            <div class="phone-item" onclick="showPhone('Азалия', '+79196843611')">
+                <div class="phone-name">Азалия</div>
+                <div class="phone-number">+7 919 684-36-11</div>
+            </div>
+            <div class="phone-item" onclick="showPhone('Марсель', '+79869045537')">
+                <div class="phone-name">Марсель</div>
+                <div class="phone-number">+7 986 904-55-37</div>
+            </div>
+            <div class="phone-item" onclick="showPhone('Настя', '+79879625874')">
+                <div class="phone-name">Настя</div>
+                <div class="phone-number">+7 987 962-58-74</div>
+            </div>
+            <div class="phone-item" onclick="showPhone('Айнур', '+79934130522')">
+                <div class="phone-name">Айнур</div>
+                <div class="phone-number">+7 993 413-05-22</div>
+            </div>
+            <div class="phone-item" onclick="showPhone('Леонид', '+79996097047')">
+                <div class="phone-name">Леонид</div>
+                <div class="phone-number">+7 999 609-70-47</div>
+            </div>
+            <div class="phone-item" onclick="showPhone('Альбина', '+79871888432')">
+                <div class="phone-name">Альбина</div>
+                <div class="phone-number">+7 987 188-84-32</div>
+            </div>
+            <div class="phone-item" onclick="showPhone('Алина Старшая', '+79613731150')">
+                <div class="phone-name">Алина Старшая</div>
+                <div class="phone-number">+7 961 373-11-50</div>
+            </div>
+        </div>
+
+        <!-- Спец службы -->
+        <div id="services-section" class="content-section">
+            <div class="section-title">🛡️ Спец Службы</div>
+            <button class="menu-button back-button" onclick="showSection('phones')">⬅️ Назад</button>
+            
+            <div class="phone-item" onclick="showPhone('Охрана (Виктор)', '+79600595900')">
+                <div class="phone-name">Охрана (Виктор)</div>
+                <div class="phone-number">+7 960 059-59-00</div>
+            </div>
+            <div class="phone-item" onclick="showPhone('Кондиционер (Ильфир)', '+79968451649')">
+                <div class="phone-name">Кондиционер (Ильфир)</div>
+                <div class="phone-number">+7 996 845-16-49</div>
+            </div>
+            <div class="phone-item" onclick="showPhone('Сантехник (Виктор)', '+79179205589')">
+                <div class="phone-name">Сантехник (Виктор)</div>
+                <div class="phone-number">+7 917 920-55-89</div>
+            </div>
+            <div class="phone-item" onclick="showPhone('Электрик (Алмаз)', '+79872679241')">
+                <div class="phone-name">Электрик (Алмаз)</div>
+                <div class="phone-number">+7 987 267-92-41</div>
+            </div>
+            <div class="phone-item" onclick="showPhone('Мастер (Рафис)', '+79503244151')">
+                <div class="phone-name">Мастер (Рафис)</div>
+                <div class="phone-number">+7 950 324-41-51</div>
+            </div>
+        </div>
+
+        <!-- Кофейни -->
+        <div id="coffeeshops-section" class="content-section">
+            <div class="section-title">☕ Кофейни Surf</div>
+            <button class="menu-button back-button" onclick="showSection('phones')">⬅️ Назад</button>
+            
+            <div class="phone-item" onclick="showPhone('xSaveIn', '+79033411616')">
+                <div class="phone-name">xSaveIn</div>
+                <div class="phone-number">+7 903 341-16-16</div>
+            </div>
+            <div class="phone-item" onclick="showPhone('xMuses', '+79376253318')">
+                <div class="phone-name">xMuses</div>
+                <div class="phone-number">+7 937 625-33-18</div>
+            </div>
+            <div class="phone-item" onclick="showPhone('xLovers', '+79050381776')">
+                <div class="phone-name">xLovers</div>
+                <div class="phone-number">+7 905 038-17-76</div>
+            </div>
+            <!-- Добавьте остальные кофейни по аналогии -->
+        </div>
+
+        <!-- Помощник -->
+        <div id="assistant-section" class="content-section">
+            <div class="section-title">💼 Помощник</div>
+            <button class="menu-button back-button" onclick="showSection('main-menu')">⬅️ Назад</button>
+            
+            <button class="menu-button" onclick="openLink('https://docs.google.com/spreadsheets/d/1WO1vzivTrDq2E7qVbyXkZWUaQty_3424uGM8uVspLWI/edit?usp=drivesdk')">
+                📦 Кбжу
+            </button>
+            <button class="menu-button" onclick="openLink('https://docs.google.com/spreadsheets/d/1osNe5k1iwYFbcvX_aU3B01YOwaCub28ThB73003OuBg/edit?usp=drivesdk')">
+                📦 Состав десертов
+            </button>
+            <button class="menu-button" onclick="openLink('https://docs.google.com/spreadsheets/d/1PyP-_4pgiz7Ok6eqfk2YU6yrhpkO2snUN1wZ7FqMMNI/edit?usp=drivesdk')">
+                📦 График работы
+            </button>
+            <button class="menu-button" onclick="openLink('https://library.surfcoffee.ru/trinity-harrogate-form/')">
+                📦 Рекламация
+            </button>
+        </div>
+
+        <!-- Все о зерне -->
+        <div id="grain-section" class="content-section">
+            <div class="section-title">📦 Все о зерне</div>
+            <button class="menu-button back-button" onclick="showSection('main-menu')">⬅️ Назад</button>
+            
+            <button class="menu-button" onclick="showSection('grain-types')">
+                📦 Виды зерна
+            </button>
+            <button class="menu-button" onclick="showSection('grain-settings')">
+                📦 Настройка
+            </button>
+        </div>
+
+        <!-- Статус -->
+        <div id="status" class="status" style="display: none;"></div>
+    </div>
 
     <script>
         // Инициализация Telegram Web App
@@ -96,71 +306,87 @@
             if (window.Telegram && window.Telegram.WebApp) {
                 tg = window.Telegram.WebApp;
                 console.log('Telegram Web App initialized');
-                console.log('Platform:', tg.platform);
-                console.log('Color scheme:', tg.colorScheme);
-                
-                // Устанавливаем тему в соответствии с настройками пользователя
-                if (tg.colorScheme === 'dark') {
-                    document.body.style.background = '#1e1e1e';
-                    document.body.style.color = '#ffffff';
-                }
                 
                 // Расширяем на весь экран
                 tg.expand();
                 
-                // Включаем кнопку назад
+                // Настраиваем кнопку назад
                 tg.BackButton.show();
-                tg.BackButton.onClick(() => {
-                    tg.close();
-                });
+                tg.BackButton.onClick(goBack);
                 
-                showStatus('Web App успешно загружен!', 'success');
             } else {
-                showStatus('Ошибка: Telegram Web App не доступен', 'error');
-                console.error('Telegram Web App not available');
-                
-                // Режим отладки - эмуляция для тестирования в браузере
-                tg = {
-                    sendData: function(data) {
-                        console.log('[DEBUG] Data would be sent:', data);
-                        showStatus('[DEBUG] Отправлено: ' + data, 'success');
-                    },
-                    close: function() {
-                        console.log('[DEBUG] Web App would close');
-                        showStatus('[DEBUG] Web App закрыт', 'success');
-                    },
-                    expand: function() {
-                        console.log('[DEBUG] Web App expanded');
-                    },
-                    BackButton: {
-                        show: function() {
-                            console.log('[DEBUG] Back button shown');
-                        },
-                        onClick: function(callback) {
-                            console.log('[DEBUG] Back button callback set');
-                        }
-                    },
-                    colorScheme: 'light'
-                };
+                console.log('Debug mode - open in Telegram for full functionality');
             }
         }
 
-        // Отправка действия боту через WebAppData
-        function sendToBot(action) {
-            if (tg && tg.sendData) {
-                console.log('Sending data to bot:', action);
-                tg.sendData(action);
-                showStatus('✅ Данные отправлены: ' + action, 'success');
-                
-                // Закрываем Web App после отправки через 1 секунду
-                setTimeout(() => {
-                    if (tg && tg.close) {
-                        tg.close();
-                    }
-                }, 1000);
+        // Показать раздел
+        function showSection(sectionId) {
+            // Скрыть все разделы
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => {
+                section.style.display = 'none';
+            });
+            
+            // Показать нужный раздел
+            document.getElementById(sectionId + '-section').style.display = 'block';
+            
+            // Обновить кнопку назад в Telegram
+            if (tg && tg.BackButton) {
+                if (sectionId === 'main-menu') {
+                    tg.BackButton.hide();
+                } else {
+                    tg.BackButton.show();
+                }
+            }
+        }
+
+        // Назад
+        function goBack() {
+            const currentSection = document.querySelector('.content-section[style="display: block;"]');
+            if (!currentSection) return;
+            
+            const currentId = currentSection.id;
+            
+            if (currentId === 'phones-section') {
+                showSection('main-menu');
+            } else if (currentId === 'barista-section' || currentId === 'services-section' || currentId === 'coffeeshops-section') {
+                showSection('phones');
+            } else if (currentId === 'assistant-section' || currentId === 'grain-section') {
+                showSection('main-menu');
+            } else if (currentId === 'grain-types-section' || currentId === 'grain-settings-section') {
+                showSection('grain');
+            }
+        }
+
+        // Показать номер телефона
+        function showPhone(name, number) {
+            showStatus(`📞 ${name}\n📱 ${formatPhone(number)}`, 'success');
+            
+            // Копирование в буфер обмена
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(number).then(() => {
+                    console.log('Phone number copied to clipboard');
+                });
+            }
+        }
+
+        // Форматирование номера телефона
+        function formatPhone(phone) {
+            return phone.replace(/(\d{1})(\d{3})(\d{3})(\d{2})(\d{2})/, '+$1 ($2) $3-$4-$5');
+        }
+
+        // Показать QR
+        function showQR() {
+            showStatus('📷 QR-код будет показан в отдельном разделе', 'success');
+            // Здесь можно добавить отображение QR-кода
+        }
+
+        // Открыть ссылку
+        function openLink(url) {
+            if (tg && tg.openLink) {
+                tg.openLink(url);
             } else {
-                showStatus('❌ Ошибка: Web App не инициализирован', 'error');
-                console.error('Web App not initialized');
+                window.open(url, '_blank');
             }
         }
 
@@ -168,8 +394,6 @@
         function closeWebApp() {
             if (tg && tg.close) {
                 tg.close();
-            } else {
-                alert('Web App не доступен');
             }
         }
 
@@ -187,11 +411,6 @@
 
         // Инициализация при загрузке страницы
         document.addEventListener('DOMContentLoaded', initTelegramApp);
-
-        // Обработка сообщений от Telegram (на всякий случай)
-        window.addEventListener('message', function(event) {
-            console.log('Received message:', event.data);
-        });
     </script>
 </body>
 </html>
