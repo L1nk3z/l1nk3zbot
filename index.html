@@ -6,6 +6,7 @@
     <title>Меню Web App Telegram</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
+        /* Ваши существующие стили остаются без изменений */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -649,7 +650,15 @@
             });
             
             // Показать нужный раздел
-            document.getElementById(sectionId + '-section').style.display = 'block';
+            const targetSection = document.getElementById(sectionId + '-section');
+            if (targetSection) {
+                targetSection.style.display = 'block';
+            } else {
+                console.error('Section not found:', sectionId + '-section');
+                // Если раздел не найден, возвращаемся назад
+                goBack();
+                return;
+            }
             
             // Обновить кнопку назад
             updateBackButton();
@@ -668,13 +677,31 @@
                 // Получаем предыдущий раздел
                 const previousSection = history[history.length - 1];
                 console.log('Going back to:', previousSection);
+                
+                // Скрыть все разделы
+                const sections = document.querySelectorAll('.content-section');
+                sections.forEach(section => {
+                    section.style.display = 'none';
+                });
+                
                 // Показываем предыдущий раздел
-                showSection(previousSection);
+                const targetSection = document.getElementById(previousSection + '-section');
+                if (targetSection) {
+                    targetSection.style.display = 'block';
+                } else {
+                    console.error('Section not found:', previousSection + '-section');
+                    // Если раздел не найден, показываем главное меню
+                    document.getElementById('main-menu-section').style.display = 'block';
+                    history = ['main-menu'];
+                }
             } else {
                 // Если история пуста, закрываем Web App
                 console.log('Closing Web App');
                 closeWebApp();
             }
+            
+            // Обновить кнопку назад
+            updateBackButton();
         }
 
         // Показать номер телефона
