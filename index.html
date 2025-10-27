@@ -31,6 +31,7 @@
             font-size: 20px;
         }
 
+        /* Стили для кнопок главного меню */
         .menu-button {
             width: 100%;
             padding: 15px;
@@ -42,6 +43,7 @@
             cursor: pointer;
             margin-bottom: 10px;
             transition: background 0.3s;
+            font-weight: bold;
         }
 
         .menu-button:hover {
@@ -73,29 +75,35 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
-        .phone-item {
-            padding: 12px;
-            border-bottom: 1px solid #eee;
+        /* Стили для карточек с номерами (синие как в главном меню) */
+        .phone-card {
+            width: 100%;
+            padding: 15px;
+            font-size: 16px;
+            background: #0088cc;
+            color: white;
+            border: none;
+            border-radius: 10px;
             cursor: pointer;
-            transition: background 0.2s;
+            margin-bottom: 10px;
+            transition: background 0.3s;
+            text-align: left;
+            font-weight: bold;
         }
 
-        .phone-item:hover {
-            background: #f8f9fa;
-        }
-
-        .phone-item:last-child {
-            border-bottom: none;
+        .phone-card:hover {
+            background: #006699;
         }
 
         .phone-name {
             font-weight: bold;
             margin-bottom: 5px;
+            font-size: 16px;
         }
 
         .phone-number {
-            color: #0088cc;
             font-size: 14px;
+            opacity: 0.9;
         }
 
         .status {
@@ -134,6 +142,7 @@
             margin-bottom: 15px;
             color: #0088cc;
             text-align: center;
+            font-weight: bold;
         }
 
         .qr-container {
@@ -146,6 +155,97 @@
             height: auto;
             border-radius: 10px;
             margin-bottom: 15px;
+        }
+
+        /* Стили для карточек зерна */
+        .grain-card {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border: 2px solid #0088cc;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .grain-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+        .grain-image {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border: 2px solid #e0e0e0;
+        }
+
+        .grain-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .grain-description {
+            color: #666;
+            font-size: 13px;
+        }
+
+        /* Стили для полноэкранного просмотра изображений */
+        .image-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #333;
+        }
+
+        .modal-title {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            margin: 0 20px;
+            border-radius: 5px;
         }
     </style>
 </head>
@@ -181,50 +281,50 @@
             <div class="section-title">👨‍🍳 Бариста</div>
             <button class="menu-button back-button" onclick="goBack()">⬅️ Назад</button>
             
-            <div class="phone-item" onclick="showPhone('Евгений', '+79867227900')">
+            <button class="phone-card" onclick="showPhone('Евгений', '+79867227900')">
                 <div class="phone-name">Евгений</div>
-                <div class="phone-number">+7 986 722-79-00</div>
-            </div>
-            <div class="phone-item" onclick="showPhone('Алина Менеджер', '+79872631390')">
+                <div class="phone-number">+7 (986) 722-79-00</div>
+            </button>
+            <button class="phone-card" onclick="showPhone('Алина Менеджер', '+79872631390')">
                 <div class="phone-name">Алина Менеджер</div>
-                <div class="phone-number">+7 987 263-13-90</div>
-            </div>
-            <div class="phone-item" onclick="showPhone('Алина Младшая', '+79965718940')">
+                <div class="phone-number">+7 (987) 263-13-90</div>
+            </button>
+            <button class="phone-card" onclick="showPhone('Алина Младшая', '+79965718940')">
                 <div class="phone-name">Алина Младшая</div>
-                <div class="phone-number">+7 996 571-89-40</div>
-            </div>
-            <div class="phone-item" onclick="showPhone('Анджелика', '+79376321662')">
+                <div class="phone-number">+7 (996) 571-89-40</div>
+            </button>
+            <button class="phone-card" onclick="showPhone('Анджелика', '+79376321662')">
                 <div class="phone-name">Анджелика</div>
-                <div class="phone-number">+7 937 632-16-62</div>
-            </div>
-            <div class="phone-item" onclick="showPhone('Азалия', '+79196843611')">
+                <div class="phone-number">+7 (937) 632-16-62</div>
+            </button>
+            <button class="phone-card" onclick="showPhone('Азалия', '+79196843611')">
                 <div class="phone-name">Азалия</div>
-                <div class="phone-number">+7 919 684-36-11</div>
-            </div>
-            <div class="phone-item" onclick="showPhone('Марсель', '+79869045537')">
+                <div class="phone-number">+7 (919) 684-36-11</div>
+            </button>
+            <button class="phone-card" onclick="showPhone('Марсель', '+79869045537')">
                 <div class="phone-name">Марсель</div>
-                <div class="phone-number">+7 986 904-55-37</div>
-            </div>
-            <div class="phone-item" onclick="showPhone('Настя', '+79879625874')">
+                <div class="phone-number">+7 (986) 904-55-37</div>
+            </button>
+            <button class="phone-card" onclick="showPhone('Настя', '+79879625874')">
                 <div class="phone-name">Настя</div>
-                <div class="phone-number">+7 987 962-58-74</div>
-            </div>
-            <div class="phone-item" onclick="showPhone('Айнур', '+79934130522')">
+                <div class="phone-number">+7 (987) 962-58-74</div>
+            </button>
+            <button class="phone-card" onclick="showPhone('Айнур', '+79934130522')">
                 <div class="phone-name">Айнур</div>
-                <div class="phone-number">+7 993 413-05-22</div>
-            </div>
-            <div class="phone-item" onclick="showPhone('Леонид', '+79996097047')">
+                <div class="phone-number">+7 (993) 413-05-22</div>
+            </button>
+            <button class="phone-card" onclick="showPhone('Леонид', '+79996097047')">
                 <div class="phone-name">Леонид</div>
-                <div class="phone-number">+7 999 609-70-47</div>
-            </div>
-            <div class="phone-item" onclick="showPhone('Альбина', '+79871888432')">
+                <div class="phone-number">+7 (999) 609-70-47</div>
+            </button>
+            <button class="phone-card" onclick="showPhone('Альбина', '+79871888432')">
                 <div class="phone-name">Альбина</div>
-                <div class="phone-number">+7 987 188-84-32</div>
-            </div>
-            <div class="phone-item" onclick="showPhone('Алина Старшая', '+79613731150')">
+                <div class="phone-number">+7 (987) 188-84-32</div>
+            </button>
+            <button class="phone-card" onclick="showPhone('Алина Старшая', '+79613731150')">
                 <div class="phone-name">Алина Старшая</div>
-                <div class="phone-number">+7 961 373-11-50</div>
-            </div>
+                <div class="phone-number">+7 (961) 373-11-50</div>
+            </button>
         </div>
 
         <!-- Спец службы -->
@@ -232,26 +332,26 @@
             <div class="section-title">🛡️ Спец Службы</div>
             <button class="menu-button back-button" onclick="goBack()">⬅️ Назад</button>
             
-            <div class="phone-item" onclick="showPhone('Охрана (Виктор)', '+79600595900')">
+            <button class="phone-card" onclick="showPhone('Охрана (Виктор)', '+79600595900')">
                 <div class="phone-name">Охрана (Виктор)</div>
-                <div class="phone-number">+7 960 059-59-00</div>
-            </div>
-            <div class="phone-item" onclick="showPhone('Кондиционер (Ильфир)', '+79968451649')">
+                <div class="phone-number">+7 (960) 059-59-00</div>
+            </button>
+            <button class="phone-card" onclick="showPhone('Кондиционер (Ильфир)', '+79968451649')">
                 <div class="phone-name">Кондиционер (Ильфир)</div>
-                <div class="phone-number">+7 996 845-16-49</div>
-            </div>
-            <div class="phone-item" onclick="showPhone('Сантехник (Виктор)', '+79179205589')">
+                <div class="phone-number">+7 (996) 845-16-49</div>
+            </button>
+            <button class="phone-card" onclick="showPhone('Сантехник (Виктор)', '+79179205589')">
                 <div class="phone-name">Сантехник (Виктор)</div>
-                <div class="phone-number">+7 917 920-55-89</div>
-            </div>
-            <div class="phone-item" onclick="showPhone('Электрик (Алмаз)', '+79872679241')">
+                <div class="phone-number">+7 (917) 920-55-89</div>
+            </button>
+            <button class="phone-card" onclick="showPhone('Электрик (Алмаз)', '+79872679241')">
                 <div class="phone-name">Электрик (Алмаз)</div>
-                <div class="phone-number">+7 987 267-92-41</div>
-            </div>
-            <div class="phone-item" onclick="showPhone('Мастер (Рафис)', '+79503244151')">
+                <div class="phone-number">+7 (987) 267-92-41</div>
+            </button>
+            <button class="phone-card" onclick="showPhone('Мастер (Рафис)', '+79503244151')">
                 <div class="phone-name">Мастер (Рафис)</div>
-                <div class="phone-number">+7 950 324-41-51</div>
-            </div>
+                <div class="phone-number">+7 (950) 324-41-51</div>
+            </button>
         </div>
 
         <!-- Кофейни -->
@@ -259,74 +359,74 @@
             <div class="section-title">☕ Кофейни Surf</div>
             <button class="menu-button back-button" onclick="goBack()">⬅️ Назад</button>
             
-            <div class="phone-item" onclick="showPhone('xSaveIn', '+79033411616')">
+            <button class="phone-card" onclick="showPhone('xSaveIn', '+79033411616')">
                 <div class="phone-name">xSaveIn</div>
-                <div class="phone-number">+7 903 341-16-16</div>
-            </div>
-            <div class="phone-item" onclick="showPhone('xMuses', '+79376253318')">
+                <div class="phone-number">+7 (903) 341-16-16</div>
+            </button>
+            <button class="phone-card" onclick="showPhone('xMuses', '+79376253318')">
                 <div class="phone-name">xMuses</div>
-                <div class="phone-number">+7 937 625-33-18</div>
-            </div>
-            <div class="phone-item" onclick="showPhone('xLovers', '+79050381776')">
+                <div class="phone-number">+7 (937) 625-33-18</div>
+            </button>
+            <button class="phone-card" onclick="showPhone('xLovers', '+79050381776')">
                 <div class="phone-name">xLovers</div>
-                <div class="phone-number">+7 905 038-17-76</div>
-            </div>
-            <div class="phone-item" onclick="showPhone('xKremlin', '+79625602121')">
+                <div class="phone-number">+7 (905) 038-17-76</div>
+            </button>
+            <button class="phone-card" onclick="showPhone('xKremlin', '+79625602121')">
                 <div class="phone-name">xKremlin</div>
-                <div class="phone-number">+7 962 560-21-21</div>
-            </div>
-            <div class="phone-item" onclick="showPhone('xJoe', '+79600534780')">
+                <div class="phone-number">+7 (962) 560-21-21</div>
+            </button>
+            <button class="phone-card" onclick="showPhone('xJoe', '+79600534780')">
                 <div class="phone-name">xJoe</div>
-                <div class="phone-number">+7 960 053-47-80</div>
-            </div>
-            <div class="phone-item" onclick="showPhone('xItPark', '+79061131245')">
+                <div class="phone-number">+7 (960) 053-47-80</div>
+            </button>
+            <button class="phone-card" onclick="showPhone('xItPark', '+79061131245')">
                 <div class="phone-name">xItPark</div>
-                <div class="phone-number">+7 906 113-12-45</div>
-            </div>
-            <div class="phone-item" onclick="showPhone('xIva', '+79033199956')">
+                <div class="phone-number">+7 (906) 113-12-45</div>
+            </button>
+            <button class="phone-card" onclick="showPhone('xIva', '+79033199956')">
                 <div class="phone-name">xIva</div>
-                <div class="phone-number">+7 903 319-99-56</div>
-            </div>
-            <div class="phone-item" onclick="showPhone('xCult', '+79959419043')">
+                <div class="phone-number">+7 (903) 319-99-56</div>
+            </button>
+            <button class="phone-card" onclick="showPhone('xCult', '+79959419043')">
                 <div class="phone-name">xCult</div>
-                <div class="phone-number">+7 995 941-90-43</div>
-            </div>
-            <div class="phone-item" onclick="showPhone('xLetskoy', '+79053701170')">
+                <div class="phone-number">+7 (995) 941-90-43</div>
+            </button>
+            <button class="phone-card" onclick="showPhone('xLetskoy', '+79053701170')">
                 <div class="phone-name">xLetskoy</div>
-                <div class="phone-number">+7 905 370-11-70</div>
-            </div>
-            <div class="phone-item" onclick="showPhone('xUnofficial', '+79692236226')">
+                <div class="phone-number">+7 (905) 370-11-70</div>
+            </button>
+            <button class="phone-card" onclick="showPhone('xUnofficial', '+79692236226')">
                 <div class="phone-name">xUnofficial</div>
-                <div class="phone-number">+7 969 223-62-26</div>
-            </div>
-            <div class="phone-item" onclick="showPhone('xInside', '+79600817758')">
+                <div class="phone-number">+7 (969) 223-62-26</div>
+            </button>
+            <button class="phone-card" onclick="showPhone('xInside', '+79600817758')">
                 <div class="phone-name">xInside</div>
-                <div class="phone-number">+7 960 081-77-58</div>
-            </div>
-            <div class="phone-item" onclick="showPhone('xKasatka', '+79061231441')">
+                <div class="phone-number">+7 (960) 081-77-58</div>
+            </button>
+            <button class="phone-card" onclick="showPhone('xKasatka', '+79061231441')">
                 <div class="phone-name">xKasatka</div>
-                <div class="phone-number">+7 906 123-14-41</div>
-            </div>
-            <div class="phone-item" onclick="showPhone('xMega', '+79270486345')">
+                <div class="phone-number">+7 (906) 123-14-41</div>
+            </button>
+            <button class="phone-card" onclick="showPhone('xMega', '+79270486345')">
                 <div class="phone-name">xMega</div>
-                <div class="phone-number">+7 927 048-63-45</div>
-            </div>
-            <div class="phone-item" onclick="showPhone('xSuite', '+79600335154')">
+                <div class="phone-number">+7 (927) 048-63-45</div>
+            </button>
+            <button class="phone-card" onclick="showPhone('xSuite', '+79600335154')">
                 <div class="phone-name">xSuite</div>
-                <div class="phone-number">+7 960 033-51-54</div>
-            </div>
-            <div class="phone-item" onclick="showPhone('xKazanMall', '+79677708131')">
+                <div class="phone-number">+7 (960) 033-51-54</div>
+            </button>
+            <button class="phone-card" onclick="showPhone('xKazanMall', '+79677708131')">
                 <div class="phone-name">xKazanMall</div>
-                <div class="phone-number">+7 967 770-81-31</div>
-            </div>
-            <div class="phone-item" onclick="showPhone('xArch', '+79600465538')">
+                <div class="phone-number">+7 (967) 770-81-31</div>
+            </button>
+            <button class="phone-card" onclick="showPhone('xArch', '+79600465538')">
                 <div class="phone-name">xArch</div>
-                <div class="phone-number">+7 960 046-55-38</div>
-            </div>
-            <div class="phone-item" onclick="showPhone('xNokka', '+79871867794')">
+                <div class="phone-number">+7 (960) 046-55-38</div>
+            </button>
+            <button class="phone-card" onclick="showPhone('xNokka', '+79871867794')">
                 <div class="phone-name">xNokka</div>
-                <div class="phone-number">+7 987 186-77-94</div>
-            </div>
+                <div class="phone-number">+7 (987) 186-77-94</div>
+            </button>
         </div>
 
         <!-- Помощник -->
@@ -379,21 +479,25 @@
             <div class="section-title">☕ Espresso зерно</div>
             <button class="menu-button back-button" onclick="goBack()">⬅️ Назад</button>
             
-            <div class="phone-item" onclick="showGrainInfo('Blend#2', 'Мягкий шоколадно-ореховый вкус')">
-                <div class="phone-name">Blend#2</div>
-                <div class="phone-number">Мягкий шоколадно-ореховый</div>
+            <div class="grain-card" onclick="showGrainInfo('Blend#2', 'Мягкий шоколадно-ореховый вкус')">
+                <img src="zerno/blend2.jpg" alt="Blend#2" class="grain-image">
+                <div class="grain-name">Blend#2</div>
+                <div class="grain-description">Мягкий шоколадно-ореховый вкус</div>
             </div>
-            <div class="phone-item" onclick="showGrainInfo('Blend#3', 'Насыщенный вкус с нотами какао и карамели')">
-                <div class="phone-name">Blend#3</div>
-                <div class="phone-number">Какао и карамель</div>
+            <div class="grain-card" onclick="showGrainInfo('Blend#3', 'Насыщенный вкус с нотами какао и карамели')">
+                <img src="zerno/blend3.jpg" alt="Blend#3" class="grain-image">
+                <div class="grain-name">Blend#3</div>
+                <div class="grain-description">Какао и карамель</div>
             </div>
-            <div class="phone-item" onclick="showGrainInfo('Blend#4', 'Фруктово-цитрусовый профиль')">
-                <div class="phone-name">Blend#4</div>
-                <div class="phone-number">Фруктово-цитрусовый</div>
+            <div class="grain-card" onclick="showGrainInfo('Blend#4', 'Фруктово-цитрусовый профиль')">
+                <img src="zerno/blend4.jpg" alt="Blend#4" class="grain-image">
+                <div class="grain-name">Blend#4</div>
+                <div class="grain-description">Фруктово-цитрусовый</div>
             </div>
-            <div class="phone-item" onclick="showGrainInfo('Blend#5', 'Яркий, фруктово-ягодный профиль')">
-                <div class="phone-name">Blend#5</div>
-                <div class="phone-number">Фруктово-ягодный</div>
+            <div class="grain-card" onclick="showGrainInfo('Blend#5', 'Яркий, фруктово-ягодный профиль')">
+                <img src="zerno/blend5.jpg" alt="Blend#5" class="grain-image">
+                <div class="grain-name">Blend#5</div>
+                <div class="grain-description">Фруктово-ягодный</div>
             </div>
         </div>
 
@@ -402,33 +506,40 @@
             <div class="section-title">☕ Filter зерно</div>
             <button class="menu-button back-button" onclick="goBack()">⬅️ Назад</button>
             
-            <div class="phone-item" onclick="showGrainInfo('Africa', 'Мягкий шоколадно-ореховый вкус')">
-                <div class="phone-name">Africa</div>
-                <div class="phone-number">Шоколадно-ореховый</div>
+            <div class="grain-card" onclick="showGrainInfo('Africa', 'Мягкий шоколадно-ореховый вкус')">
+                <img src="zerno/Africa.jpg" alt="Africa" class="grain-image">
+                <div class="grain-name">Africa</div>
+                <div class="grain-description">Шоколадно-ореховый</div>
             </div>
-            <div class="phone-item" onclick="showGrainInfo('America', 'Мягкий шоколадно-ореховый вкус')">
-                <div class="phone-name">America</div>
-                <div class="phone-number">Шоколадно-ореховый</div>
+            <div class="grain-card" onclick="showGrainInfo('America', 'Мягкий шоколадно-ореховый вкус')">
+                <img src="zerno/America.jpg" alt="America" class="grain-image">
+                <div class="grain-name">America</div>
+                <div class="grain-description">Шоколадно-ореховый</div>
             </div>
-            <div class="phone-item" onclick="showGrainInfo('Ethiopia Solomo', 'Мягкий шоколадно-ореховый вкус')">
-                <div class="phone-name">Ethiopia Solomo</div>
-                <div class="phone-number">Шоколадно-ореховый</div>
+            <div class="grain-card" onclick="showGrainInfo('Ethiopia Solomo', 'Мягкий шоколадно-ореховый вкус')">
+                <img src="zerno/EthiopiaUragaSolomo.jpg" alt="Ethiopia Solomo" class="grain-image">
+                <div class="grain-name">Ethiopia Solomo</div>
+                <div class="grain-description">Шоколадно-ореховый</div>
             </div>
-            <div class="phone-item" onclick="showGrainInfo('Twin Fin', 'Мягкий шоколадно-ореховый вкус')">
-                <div class="phone-name">Twin Fin</div>
-                <div class="phone-number">Шоколадно-ореховый</div>
+            <div class="grain-card" onclick="showGrainInfo('Twin Fin', 'Мягкий шоколадно-ореховый вкус')">
+                <img src="zerno/TwinFin.jpg" alt="Twin Fin" class="grain-image">
+                <div class="grain-name">Twin Fin</div>
+                <div class="grain-description">Шоколадно-ореховый</div>
             </div>
-            <div class="phone-item" onclick="showGrainInfo('Decaf', 'Мягкий шоколадно-ореховый вкус')">
-                <div class="phone-name">Decaf</div>
-                <div class="phone-number">Шоколадно-ореховый</div>
+            <div class="grain-card" onclick="showGrainInfo('Decaf', 'Мягкий шоколадно-ореховый вкус')">
+                <img src="zerno/Decaf.jpg" alt="Decaf" class="grain-image">
+                <div class="grain-name">Decaf</div>
+                <div class="grain-description">Шоколадно-ореховый</div>
             </div>
-            <div class="phone-item" onclick="showGrainInfo('Ethiopia Uraga', 'Мягкий шоколадно-ореховый вкус')">
-                <div class="phone-name">Ethiopia Uraga</div>
-                <div class="phone-number">Шоколадно-ореховый</div>
+            <div class="grain-card" onclick="showGrainInfo('Ethiopia Uraga', 'Мягкий шоколадно-ореховый вкус')">
+                <img src="zerno/EthiopiaUraga.jpg" alt="Ethiopia Uraga" class="grain-image">
+                <div class="grain-name">Ethiopia Uraga</div>
+                <div class="grain-description">Шоколадно-ореховый</div>
             </div>
-            <div class="phone-item" onclick="showGrainInfo('Malawi Domira Bay', 'Мягкий шоколадно-ореховый вкус')">
-                <div class="phone-name">Malawi Domira Bay</div>
-                <div class="phone-number">Шоколадно-ореховый</div>
+            <div class="grain-card" onclick="showGrainInfo('Malawi Domira Bay', 'Мягкий шоколадно-ореховый вкус')">
+                <img src="zerno/MalawiDomiraBay.jpg" alt="Malawi Domira Bay" class="grain-image">
+                <div class="grain-name">Malawi Domira Bay</div>
+                <div class="grain-description">Шоколадно-ореховый</div>
             </div>
         </div>
 
@@ -437,21 +548,31 @@
             <div class="section-title">📦 Настройка зерна</div>
             <button class="menu-button back-button" onclick="goBack()">⬅️ Назад</button>
             
-            <button class="menu-button" onclick="showGrainInfo('Espresso', 'Таблица настройки эспрессо')">
-                ☕ Espresso
-            </button>
-            <button class="menu-button" onclick="showGrainInfo('Ph', 'Уровень Ph для идеальной настройки')">
-                ☕ Ph
-            </button>
-            <button class="menu-button" onclick="showGrainInfo('Descriptors', 'Таблица всех основных дескрипторов')">
-                ☕ Descriptors
-            </button>
-            <button class="menu-button" onclick="showGrainInfo('Extraction', 'Таблица экстракции кофе')">
-                ☕ Extraction
-            </button>
-            <button class="menu-button" onclick="showGrainInfo('Filter', 'Таблица для настройки фильтра')">
-                ☕ Filter
-            </button>
+            <div class="grain-card" onclick="showGrainInfo('Espresso', 'Таблица настройки эспрессо')">
+                <img src="helpzerno/espresso.jpg" alt="Espresso" class="grain-image">
+                <div class="grain-name">Espresso</div>
+                <div class="grain-description">Таблица настройки</div>
+            </div>
+            <div class="grain-card" onclick="showGrainInfo('Ph', 'Уровень Ph для идеальной настройки')">
+                <img src="helpzerno/Ph.jpg" alt="Ph" class="grain-image">
+                <div class="grain-name">Ph</div>
+                <div class="grain-description">Уровень кислотности</div>
+            </div>
+            <div class="grain-card" onclick="showGrainInfo('Descriptors', 'Таблица всех основных дескрипторов')">
+                <img src="helpzerno/Descriptors.jpg" alt="Descriptors" class="grain-image">
+                <div class="grain-name">Descriptors</div>
+                <div class="grain-description">Основные дескрипторы</div>
+            </div>
+            <div class="grain-card" onclick="showGrainInfo('Extraction', 'Таблица экстракции кофе')">
+                <img src="helpzerno/Extraction.jpg" alt="Extraction" class="grain-image">
+                <div class="grain-name">Extraction</div>
+                <div class="grain-description">Таблица экстракции</div>
+            </div>
+            <div class="grain-card" onclick="showGrainInfo('Filter', 'Таблица для настройки фильтра')">
+                <img src="helpzerno/filter.jpg" alt="Filter" class="grain-image">
+                <div class="grain-name">Filter</div>
+                <div class="grain-description">Настройка фильтра</div>
+            </div>
         </div>
 
         <!-- QR код -->
@@ -464,16 +585,23 @@
                     QR-код для быстрого доступа к боту
                 </div>
                 <!-- Замените src на реальный URL вашего QR-кода -->
-                <img src="https://via.placeholder.com/300x300/0088cc/ffffff?text=QR+Code" alt="QR Code" class="qr-image">
-                <div class="phone-item" onclick="showPhone('QR-код', 'Отсканируйте QR-код для доступа к боту')">
+                <img src="qr.jpg" alt="QR Code" class="qr-image">
+                <button class="phone-card" onclick="showPhone('QR-код', 'Отсканируйте QR-код для доступа к боту')">
                     <div class="phone-name">📷 QR-код бота</div>
                     <div class="phone-number">Наведите камеру на QR-код</div>
-                </div>
+                </button>
             </div>
         </div>
 
         <!-- Статус -->
         <div id="status" class="status" style="display: none;"></div>
+    </div>
+
+    <!-- Модальное окно для просмотра изображений -->
+    <div id="imageModal" class="image-modal">
+        <button class="modal-close" onclick="closeImageModal()">×</button>
+        <img id="modalImage" src="" alt="" class="modal-content">
+        <div id="modalTitle" class="modal-title"></div>
     </div>
 
     <script>
@@ -490,11 +618,22 @@
                 tg.expand();
                 
                 // Настраиваем кнопку назад
-                tg.BackButton.show();
-                tg.BackButton.onClick(goBack);
+                updateBackButton();
                 
             } else {
                 console.log('Debug mode - open in Telegram for full functionality');
+            }
+        }
+
+        // Обновить кнопку назад
+        function updateBackButton() {
+            if (tg && tg.BackButton) {
+                if (history.length <= 1) {
+                    tg.BackButton.hide();
+                } else {
+                    tg.BackButton.show();
+                    tg.BackButton.onClick(goBack);
+                }
             }
         }
 
@@ -512,57 +651,102 @@
             // Показать нужный раздел
             document.getElementById(sectionId + '-section').style.display = 'block';
             
-            // Обновить кнопку назад в Telegram
-            if (tg && tg.BackButton) {
-                if (sectionId === 'main-menu') {
-                    tg.BackButton.hide();
-                } else {
-                    tg.BackButton.show();
-                }
-            }
+            // Обновить кнопку назад
+            updateBackButton();
             
+            console.log('Current section:', sectionId);
             console.log('History:', history);
         }
 
         // Назад с историей
         function goBack() {
+            console.log('Go back called, history length:', history.length);
+            
             if (history.length > 1) {
                 // Удаляем текущий раздел из истории
                 history.pop();
                 // Получаем предыдущий раздел
                 const previousSection = history[history.length - 1];
+                console.log('Going back to:', previousSection);
                 // Показываем предыдущий раздел
                 showSection(previousSection);
             } else {
                 // Если история пуста, закрываем Web App
+                console.log('Closing Web App');
                 closeWebApp();
             }
         }
 
         // Показать номер телефона
         function showPhone(name, number) {
-            showStatus(`📞 ${name}\n📱 ${formatPhone(number)}`, 'success');
+            // Форматируем номер без лишних плюсов
+            const formattedNumber = formatPhone(number);
+            showStatus(`📞 ${name}\n📱 ${formattedNumber}`, 'success');
             
-            // Копирование в буфер обмена
+            // Копирование в буфер обмена (оригинальный номер без форматирования)
             if (navigator.clipboard && number.startsWith('+')) {
                 navigator.clipboard.writeText(number).then(() => {
-                    console.log('Phone number copied to clipboard');
+                    console.log('Phone number copied to clipboard:', number);
                 });
             }
         }
 
         // Форматирование номера телефона
         function formatPhone(phone) {
-            if (phone.startsWith('+')) {
-                return phone.replace(/(\d{1})(\d{3})(\d{3})(\d{2})(\d{2})/, '+$1 ($2) $3-$4-$5');
+            // Убираем все нецифровые символы кроме плюса в начале
+            let cleanPhone = phone.replace(/[^\d+]/g, '');
+            
+            // Убираем лишние плюсы
+            if (cleanPhone.startsWith('++')) {
+                cleanPhone = '+' + cleanPhone.substring(2);
             }
-            return phone;
+            
+            // Форматируем номер
+            if (cleanPhone.startsWith('+7') && cleanPhone.length === 12) {
+                return cleanPhone.replace(/(\+7)(\d{3})(\d{3})(\d{2})(\d{2})/, '$1 ($2) $3-$4-$5');
+            }
+            
+            return cleanPhone;
         }
 
-        // Показать информацию о зерне
-        function showGrainInfo(name, description) {
-            showStatus(`📦 ${name}\n${description}`, 'success');
+        // Показать изображение зерна в полноэкранном режиме
+        function showGrainImage(name, imageUrl, description) {
+            const modal = document.getElementById('imageModal');
+            const modalImage = document.getElementById('modalImage');
+            const modalTitle = document.getElementById('modalTitle');
+            
+            modalImage.src = imageUrl;
+            modalImage.alt = name;
+            modalTitle.textContent = `${name} - ${description}`;
+            
+            modal.style.display = 'flex';
+            
+            // Блокируем прокрутку основного контента
+            document.body.style.overflow = 'hidden';
         }
+
+        // Закрыть модальное окно с изображением
+        function closeImageModal() {
+            const modal = document.getElementById('imageModal');
+            modal.style.display = 'none';
+            
+            // Восстанавливаем прокрутку
+            document.body.style.overflow = 'auto';
+        }
+
+        // Закрытие по клику вне изображения
+        document.getElementById('imageModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeImageModal();
+            }
+        });
+
+        // Закрытие по ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeImageModal();
+            }
+        });
 
         // Открыть ссылку
         function openLink(url) {
