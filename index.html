@@ -3,796 +3,536 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Меню Web App Telegram</title>
+    <title>Surf Coffee — вход</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
-        /* Ваши существующие стили остаются без изменений */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-        
-        body {
-            font-family: Arial, sans-serif;
-            background: #f5f5f5;
-            color: #333;
-            padding: 20px;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; min-height: 100vh; }
 
-        .container {
-            max-width: 100%;
-            margin: 0 auto;
+        /* Экран входа — тёмный кофейный стиль */
+        #login-screen {
+            min-height: 100vh;
+            background: linear-gradient(160deg, #1a0f0a 0%, #2d1810 50%, #1a0f0a 100%);
+            color: #f5e6d3;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
         }
-
-        h1 {
-            color: #0088cc;
-            margin-bottom: 20px;
-            text-align: center;
-            font-size: 20px;
+        #login-screen h1 {
+            font-size: 28px;
+            margin-bottom: 6px;
+            color: #e8d5b5;
         }
-
-        /* Стили для кнопок главного меню */
-        .menu-button {
+        #login-screen .sub {
+            font-size: 13px;
+            color: #a08060;
+            margin-bottom: 32px;
+        }
+        .login-card {
             width: 100%;
-            padding: 15px;
-            font-size: 16px;
-            background: #0088cc;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            margin-bottom: 10px;
-            transition: background 0.3s;
-            font-weight: bold;
+            max-width: 320px;
+            background: rgba(45,24,16,0.9);
+            border: 1px solid #4a3020;
+            border-radius: 16px;
+            padding: 28px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
         }
-
-        .menu-button:hover {
-            background: #006699;
-        }
-
-        .back-button {
-            background: #6c757d;
-        }
-
-        .back-button:hover {
-            background: #545b62;
-        }
-
-        .close-button {
-            background: #dc3545;
-        }
-
-        .close-button:hover {
-            background: #c82333;
-        }
-
-        .content-section {
-            display: none;
-            background: white;
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 10px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-
-        /* Стили для карточек с номерами (синие как в главном меню) */
-        .phone-card {
-            width: 100%;
-            padding: 15px;
-            font-size: 16px;
-            background: #0088cc;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            margin-bottom: 10px;
-            transition: background 0.3s;
-            text-align: left;
-            font-weight: bold;
-        }
-
-        .phone-card:hover {
-            background: #006699;
-        }
-
-        .phone-name {
-            font-weight: bold;
-            margin-bottom: 5px;
-            font-size: 16px;
-        }
-
-        .phone-number {
-            font-size: 14px;
-            opacity: 0.9;
-        }
-
-        .status {
-            padding: 10px;
-            border-radius: 5px;
-            text-align: center;
-            margin-bottom: 10px;
-            font-size: 14px;
-        }
-
-        .success {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-
-        .error {
-            background: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-
-        .info {
-            background: #d1ecf1;
-            color: #0c5460;
-            border: 1px solid #bee5eb;
-            margin-bottom: 15px;
-            padding: 10px;
-            border-radius: 5px;
-            text-align: center;
+        .login-card label {
+            display: block;
             font-size: 12px;
+            color: #a08060;
+            margin-bottom: 6px;
         }
-
-        .section-title {
-            font-size: 18px;
-            margin-bottom: 15px;
-            color: #0088cc;
-            text-align: center;
-            font-weight: bold;
-        }
-
-        .qr-container {
-            text-align: center;
-            padding: 20px;
-        }
-
-        .qr-image {
-            max-width: 100%;
-            height: auto;
-            border-radius: 10px;
-            margin-bottom: 15px;
-        }
-
-        /* Стили для карточек зерна */
-        .grain-card {
-            background: white;
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 10px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            border: 2px solid #0088cc;
-            cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .grain-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-        }
-
-        .grain-image {
+        .login-card input {
             width: 100%;
-            height: 120px;
-            object-fit: cover;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            border: 2px solid #e0e0e0;
+            padding: 12px 14px;
+            margin-bottom: 16px;
+            border: 1px solid #4a3020;
+            border-radius: 10px;
+            background: #1a0f0a;
+            color: #f5e6d3;
+            font-size: 15px;
         }
-
-        .grain-name {
-            font-weight: bold;
-            margin-bottom: 5px;
+        .login-card input::placeholder { color: #6b5344; }
+        .login-card button {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            background: #c4a35a;
+            color: #1a0f0a;
             font-size: 16px;
-            color: #333;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .login-card button:disabled { opacity: 0.6; cursor: not-allowed; }
+        .login-err {
+            font-size: 13px;
+            color: #d4a574;
+            margin-top: 12px;
+            text-align: center;
+            display: none;
         }
 
-        .grain-description {
-            color: #666;
+        .login-links {
+            margin-top: 8px;
+            text-align: center;
+        }
+        .login-links a {
+            color: #d4b37a;
+            text-decoration: none;
             font-size: 13px;
         }
+        .login-links a:hover { text-decoration: underline; }
 
-        /* Стили для полноэкранного просмотра изображений */
-        .image-modal {
+        /* Приложение после входа — тот же кофейный стиль */
+        #app-screen {
+            display: none;
+            padding: 16px;
+            padding-bottom: 24px;
+            min-height: 100vh;
+            background: linear-gradient(160deg, #1a0f0a 0%, #2d1810 50%, #1a0f0a 100%);
+            color: #f5e6d3;
+        }
+        #app-screen .container { max-width: 100%; margin: 0 auto; }
+        #app-screen .app-header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 18px;
+            border: 1px solid #4a3020;
+            border-radius: 14px;
+            background: rgba(45,24,16,0.9);
+        }
+        #app-screen .app-header h1 { color: #e8d5b5; font-size: 22px; font-weight: 700; margin-bottom: 4px; }
+        #app-screen .app-header .subtitle { font-size: 12px; color: #a08060; }
+        #app-screen .app-header .whoami { font-size: 13px; color: #d4b37a; margin-top: 8px; }
+        #app-screen .menu-button {
+            width: 100%; padding: 14px 16px; font-size: 15px; background: #c4a35a; color: #1a0f0a; border: none;
+            border-radius: 12px; cursor: pointer; margin-bottom: 10px; font-weight: 600;
+        }
+        #app-screen .menu-button:hover { opacity: 0.92; }
+        #app-screen .back-button { background: #6b5344; color: #f5e6d3; }
+        #app-screen .close-button { background: #8a3f2a; color: #f5e6d3; }
+        #app-screen .content-section {
+            display: none;
+            background: rgba(45,24,16,0.9);
+            border: 1px solid #4a3020;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 10px;
+            box-shadow: 0 4px 18px rgba(0,0,0,0.25);
+        }
+        #app-screen .phone-card {
+            width: 100%; padding: 15px; font-size: 16px; background: #3c2415; color: #f5e6d3; border: 1px solid #5d3a26;
+            border-radius: 10px; cursor: pointer; margin-bottom: 10px; text-align: left; font-weight: bold;
+        }
+        #app-screen .phone-name { font-weight: bold; margin-bottom: 5px; font-size: 16px; }
+        #app-screen .phone-number { font-size: 14px; opacity: 0.85; color: #d5c2ac; }
+        #app-screen .info { background: #2a1a11; color: #c6a989; margin-bottom: 16px; padding: 12px; border-radius: 10px; text-align: center; font-size: 13px; border: 1px solid #4a3020; }
+        #app-screen .section-title { font-size: 18px; margin-bottom: 15px; color: #e8d5b5; text-align: center; font-weight: 700; }
+        #app-screen .status { padding: 10px; border-radius: 5px; text-align: center; margin-bottom: 10px; font-size: 14px; }
+        #app-screen .success { background: #25402c; color: #b9e1c0; border: 1px solid #3f6a4d; }
+        #app-screen .error { background: #4d2a2a; color: #f0b4b4; border: 1px solid #7a4747; }
+        #app-screen .grain-card { background: #3c2415; border-radius: 10px; padding: 15px; margin-bottom: 10px; border: 1px solid #5d3a26; cursor: pointer; }
+        #app-screen .grain-image {
+            width: 100%; height: 120px; object-fit: cover; border-radius: 8px; margin-bottom: 10px;
+            -webkit-user-select: none; user-select: none;
+            -webkit-touch-callout: none;
+            touch-action: manipulation;
+            pointer-events: auto;
+        }
+        #app-screen .grain-image-hint { font-size: 11px; color: #a08060; margin: -6px 0 10px; text-align: center; }
+        /* Полноэкранный просмотр фото (в Telegram Web App по картинке часто только «Копировать») */
+        .photo-viewer {
             display: none;
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            z-index: 1000;
-            justify-content: center;
+            inset: 0;
+            z-index: 99999;
+            background: rgba(0,0,0,0.92);
+            flex-direction: column;
             align-items: center;
-        }
-
-        .modal-content {
-            max-width: 90%;
-            max-height: 90%;
-            border-radius: 10px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: rgba(255, 255, 255, 0.8);
-            border: none;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            font-size: 20px;
-            cursor: pointer;
-            display: flex;
             justify-content: center;
-            align-items: center;
-            color: #333;
+            padding: 12px;
+            box-sizing: border-box;
         }
-
-        .modal-title {
-            position: absolute;
-            bottom: 20px;
-            left: 0;
-            right: 0;
+        .photo-viewer.is-open { display: flex; }
+        .photo-viewer .photo-viewer-title {
+            color: #e8d5b5;
+            font-size: 15px;
+            margin-bottom: 10px;
             text-align: center;
-            color: white;
-            font-size: 18px;
-            font-weight: bold;
-            padding: 10px;
-            background: rgba(0, 0, 0, 0.7);
-            margin: 0 20px;
-            border-radius: 5px;
+            max-width: 100%;
         }
+        .photo-viewer img {
+            max-width: 100%;
+            max-height: calc(100vh - 120px);
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            border-radius: 8px;
+            -webkit-user-select: none;
+            user-select: none;
+            touch-action: manipulation;
+        }
+        .photo-viewer .photo-viewer-actions {
+            margin-top: 14px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+        .photo-viewer .photo-viewer-btn {
+            padding: 10px 16px;
+            border: none;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .photo-viewer .photo-viewer-btn-close { background: #6b5344; color: #f5e6d3; }
+        .photo-viewer .photo-viewer-btn-open { background: #c4a35a; color: #1a0f0a; }
+        #app-screen .grain-name { font-weight: bold; margin-bottom: 5px; font-size: 16px; color: #f5e6d3; }
+        #app-screen .grain-description { color: #d5c2ac; font-size: 13px; }
+        #app-screen .qr-container { text-align: center; padding: 20px; }
+        #app-screen .qr-image {
+            max-width: 100%; height: auto; border-radius: 10px; margin-bottom: 15px;
+            -webkit-user-select: none; user-select: none;
+            -webkit-touch-callout: none;
+            touch-action: manipulation;
+            cursor: pointer;
+        }
+        #app-screen .logout-btn { margin-top: 12px; background: #8a3f2a; color: #f5e6d3; font-size: 13px; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Главное меню -->
-        <div id="main-menu-section" class="content-section" style="display: block;">
-            <h1>🍵 Surf Coffee Assistant</h1>
-            <div class="info">
-                Выберите нужный раздел меню
-            </div>
-            
-            <button class="menu-button" onclick="showSection('phones')">📞 Номера телефонов</button>
-            <button class="menu-button" onclick="showSection('assistant')">💼 Помощник</button>
-            <button class="menu-button" onclick="showSection('grain')">📦 Все о зерне</button>
-            <button class="menu-button" onclick="showSection('qr')">📷 Бот Сёрфа</button>
-            <button class="menu-button close-button" onclick="closeWebApp()">❌ Закрыть</button>
-        </div>
-
-        <!-- Раздел номеров -->
-        <div id="phones-section" class="content-section">
-            <div class="section-title">📞 Номера телефонов</div>
-            
-            <button class="menu-button back-button" onclick="goBack()">⬅️ Назад</button>
-            
-            <button class="menu-button" onclick="showSection('barista')">👨‍🍳 Бариста</button>
-            <button class="menu-button" onclick="showSection('services')">🛡️ Спец Службы</button>
-            <button class="menu-button" onclick="showSection('coffeeshops')">☕ Кофейни Surf</button>
-        </div>
-
-        <!-- Бариста -->
-        <div id="barista-section" class="content-section">
-            <div class="section-title">👨‍🍳 Бариста</div>
-            <button class="menu-button back-button" onclick="goBack()">⬅️ Назад</button>
-            
-            <button class="phone-card" onclick="showPhone('Евгений', '+7')">
-                <div class="phone-name">Евгений</div>
-                <div class="phone-number">+7</div>
-            </button>
-            <button class="phone-card" onclick="showPhone('Алина Менеджер', '+7')">
-                <div class="phone-name">Алина Менеджер</div>
-                <div class="phone-number">+7</div>
-            </button>
-            <button class="phone-card" onclick="showPhone('Анжелика', '+7')">
-                <div class="phone-name">Анжелика</div>
-                <div class="phone-number">+7</div>
-            </button>
-            <button class="phone-card" onclick="showPhone('Азалия', '+7')">
-                <div class="phone-name">Азалия</div>
-                <div class="phone-number">+7</div>
-            </button>
-            <button class="phone-card" onclick="showPhone('Марсель', '+7')">
-                <div class="phone-name">Марсель</div>
-                <div class="phone-number">+7</div>
-            </button>
-            <button class="phone-card" onclick="showPhone('Айнур', '+7')">
-                <div class="phone-name">Айнур</div>
-                <div class="phone-number">+7</div>
-            </button>
-            <button class="phone-card" onclick="showPhone('Леонид', '+7')">
-                <div class="phone-name">Леонид</div>
-                <div class="phone-number">+7</div>
-            </button>
-            <button class="phone-card" onclick="showPhone('Альбина', '+7')">
-                <div class="phone-name">Альбина</div>
-                <div class="phone-number">+7</div>
-            </button>
-        </div>
-
-        <!-- Спец службы -->
-        <div id="services-section" class="content-section">
-            <div class="section-title">🛡️ Спец Службы</div>
-            <button class="menu-button back-button" onclick="goBack()">⬅️ Назад</button>
-            
-            <button class="phone-card" onclick="showPhone('Охрана (Виктор)', '+7')">
-                <div class="phone-name">Охрана (Виктор)</div>
-                <div class="phone-number">+7 (960) 059-59-00</div>
-            </button>
-            <button class="phone-card" onclick="showPhone('Кондиционер (Ильфир)', '+79968451649')">
-                <div class="phone-name">Кондиционер (Ильфир)</div>
-                <div class="phone-number">+7 (996) 845-16-49</div>
-            </button>
-            <button class="phone-card" onclick="showPhone('Сантехник (Виктор)', '+79179205589')">
-                <div class="phone-name">Сантехник (Виктор)</div>
-                <div class="phone-number">+7 (917) 920-55-89</div>
-            </button>
-            <button class="phone-card" onclick="showPhone('Электрик (Алмаз)', '+79872679241')">
-                <div class="phone-name">Электрик (Алмаз)</div>
-                <div class="phone-number">+7 (987) 267-92-41</div>
-            </button>
-            <button class="phone-card" onclick="showPhone('Мастер (Рафис)', '+79503244151')">
-                <div class="phone-name">Мастер (Рафис)</div>
-                <div class="phone-number">+7 (950) 324-41-51</div>
-            </button>
-        </div>
-
-        <!-- Кофейни -->
-        <div id="coffeeshops-section" class="content-section">
-            <div class="section-title">☕ Кофейни Surf</div>
-            <button class="menu-button back-button" onclick="goBack()">⬅️ Назад</button>
-            
-            <button class="phone-card" onclick="showPhone('xSaveIn', '+79033411616')">
-                <div class="phone-name">xSaveIn</div>
-                <div class="phone-number">+7 (903) 341-16-16</div>
-            </button>
-            <button class="phone-card" onclick="showPhone('xMuses', '+79376253318')">
-                <div class="phone-name">xMuses</div>
-                <div class="phone-number">+7 (937) 625-33-18</div>
-            </button>
-            <button class="phone-card" onclick="showPhone('xLovers', '+79050381776')">
-                <div class="phone-name">xLovers</div>
-                <div class="phone-number">+7 (905) 038-17-76</div>
-            </button>
-            <button class="phone-card" onclick="showPhone('xKremlin', '+79625602121')">
-                <div class="phone-name">xKremlin</div>
-                <div class="phone-number">+7 (962) 560-21-21</div>
-            </button>
-            <button class="phone-card" onclick="showPhone('xJoe', '+79600534780')">
-                <div class="phone-name">xJoe</div>
-                <div class="phone-number">+7 (960) 053-47-80</div>
-            </button>
-            <button class="phone-card" onclick="showPhone('xItPark', '+79061131245')">
-                <div class="phone-name">xItPark</div>
-                <div class="phone-number">+7 (906) 113-12-45</div>
-            </button>
-            <button class="phone-card" onclick="showPhone('xIva', '+79033199956')">
-                <div class="phone-name">xIva</div>
-                <div class="phone-number">+7 (903) 319-99-56</div>
-            </button>
-            <button class="phone-card" onclick="showPhone('xCult', '+79959419043')">
-                <div class="phone-name">xCult</div>
-                <div class="phone-number">+7 (995) 941-90-43</div>
-            </button>
-            <button class="phone-card" onclick="showPhone('xLetskoy', '+79053701170')">
-                <div class="phone-name">xLetskoy</div>
-                <div class="phone-number">+7 (905) 370-11-70</div>
-            </button>
-            <button class="phone-card" onclick="showPhone('xUnofficial', '+79692236226')">
-                <div class="phone-name">xUnofficial</div>
-                <div class="phone-number">+7 (969) 223-62-26</div>
-            </button>
-            <button class="phone-card" onclick="showPhone('xInside', '+79600817758')">
-                <div class="phone-name">xInside</div>
-                <div class="phone-number">+7 (960) 081-77-58</div>
-            </button>
-            <button class="phone-card" onclick="showPhone('xKasatka', '+79061231441')">
-                <div class="phone-name">xKasatka</div>
-                <div class="phone-number">+7 (906) 123-14-41</div>
-            </button>
-            <button class="phone-card" onclick="showPhone('xMega', '+79270486345')">
-                <div class="phone-name">xMega</div>
-                <div class="phone-number">+7 (927) 048-63-45</div>
-            </button>
-            <button class="phone-card" onclick="showPhone('xSuite', '+79600335154')">
-                <div class="phone-name">xSuite</div>
-                <div class="phone-number">+7 (960) 033-51-54</div>
-            </button>
-            <button class="phone-card" onclick="showPhone('xKazanMall', '+79677708131')">
-                <div class="phone-name">xKazanMall</div>
-                <div class="phone-number">+7 (967) 770-81-31</div>
-            </button>
-            <button class="phone-card" onclick="showPhone('xArch', '+79600465538')">
-                <div class="phone-name">xArch</div>
-                <div class="phone-number">+7 (960) 046-55-38</div>
-            </button>
-            <button class="phone-card" onclick="showPhone('xNokka', '+79871867794')">
-                <div class="phone-name">xNokka</div>
-                <div class="phone-number">+7 (987) 186-77-94</div>
-            </button>
-        </div>
-
-        <!-- Помощник -->
-        <div id="assistant-section" class="content-section">
-            <div class="section-title">💼 Помощник</div>
-            <button class="menu-button back-button" onclick="goBack()">⬅️ Назад</button>
-            
-            <button class="menu-button" onclick="openLink('https://docs.google.com/spreadsheets/d/1WO1vzivTrDq2E7qVbyXkZWUaQty_3424uGM8uVspLWI/edit?usp=drivesdk')">
-                📦 Кбжу
-            </button>
-            <button class="menu-button" onclick="openLink('https://docs.google.com/spreadsheets/d/1osNe5k1iwYFbcvX_aU3B01YOwaCub28ThB73003OuBg/edit?usp=drivesdk')">
-                📦 Состав десертов
-            </button>
-            <button class="menu-button" onclick="openLink('https://docs.google.com/spreadsheets/d/1PyP-_4pgiz7Ok6eqfk2YU6yrhpkO2snUN1wZ7FqMMNI/edit?usp=drivesdk')">
-                📦 График работы
-            </button>
-            <button class="menu-button" onclick="openLink('https://library.surfcoffee.ru/trinity-harrogate-form/')">
-                📦 Рекламация
-            </button>
-        </div>
-
-        <!-- Все о зерне -->
-        <div id="grain-section" class="content-section">
-            <div class="section-title">📦 Все о зерне</div>
-            <button class="menu-button back-button" onclick="goBack()">⬅️ Назад</button>
-            
-            <button class="menu-button" onclick="showSection('grain-types')">
-                📦 Виды зерна
-            </button>
-            <button class="menu-button" onclick="showSection('grain-settings')">
-                📦 Настройка
-            </button>
-        </div>
-
-        <!-- Виды зерна -->
-        <div id="grain-types-section" class="content-section">
-            <div class="section-title">📦 Виды зерна</div>
-            <button class="menu-button back-button" onclick="goBack()">⬅️ Назад</button>
-            
-            <button class="menu-button" onclick="showSection('grain-espresso')">
-                ☕ Espresso
-            </button>
-            <button class="menu-button" onclick="showSection('grain-filter')">
-                ☕ Filter
-            </button>
-        </div>
-
-        <!-- Espresso зерно -->
-        <div id="grain-espresso-section" class="content-section">
-            <div class="section-title">☕ Espresso зерно</div>
-            <button class="menu-button back-button" onclick="goBack()">⬅️ Назад</button>
-            
-            <div class="grain-card" onclick="showGrainImage('Blend#2', 'https://raw.githubusercontent.com/l1nk3z/l1nk3zbot/main/zerno/blend2.jpg', 'Мягкий шоколадно-ореховый вкус')">
-                <img src="https://raw.githubusercontent.com/l1nk3z/l1nk3zbot/main/zerno/blend2.jpg" alt="Blend#2" class="grain-image">
-                <div class="grain-name">Blend#2</div>
-                <div class="grain-description">Мягкий шоколадно-ореховый вкус</div>
-            </div>
-            <div class="grain-card" onclick="showGrainImage('Blend#3', 'https://raw.githubusercontent.com/l1nk3z/l1nk3zbot/main/zerno/blend3.jpg', 'Насыщенный вкус с нотами какао и карамели')">
-                <img src="https://raw.githubusercontent.com/l1nk3z/l1nk3zbot/main/zerno/blend3.jpg" alt="Blend#3" class="grain-image">
-                <div class="grain-name">Blend#3</div>
-                <div class="grain-description">Какао и карамель</div>
-            </div>
-            <div class="grain-card" onclick="showGrainImage('Blend#4', 'https://raw.githubusercontent.com/l1nk3z/l1nk3zbot/main/zerno/blend4.jpg', 'Фруктово-цитрусовый профиль')">
-                <img src="https://raw.githubusercontent.com/l1nk3z/l1nk3zbot/main/zerno/blend4.jpg" alt="Blend#4" class="grain-image">
-                <div class="grain-name">Blend#4</div>
-                <div class="grain-description">Фруктово-цитрусовый</div>
-            </div>
-            <div class="grain-card" onclick="showGrainImage('Blend#5', 'https://raw.githubusercontent.com/l1nk3z/l1nk3zbot/main/zerno/blend5.jpg', 'Яркий, фруктово-ягодный профиль')">
-                <img src="https://raw.githubusercontent.com/l1nk3z/l1nk3zbot/main/zerno/blend5.jpg" alt="Blend#5" class="grain-image">
-                <div class="grain-name">Blend#5</div>
-                <div class="grain-description">Фруктово-ягодный</div>
-            </div>
-        </div>
-
-        <!-- Filter зерно -->
-        <div id="grain-filter-section" class="content-section">
-            <div class="section-title">☕ Filter зерно</div>
-            <button class="menu-button back-button" onclick="goBack()">⬅️ Назад</button>
-            
-            <div class="grain-card" onclick="showGrainImage('Africa', 'https://raw.githubusercontent.com/l1nk3z/l1nk3zbot/main/zerno/africa.jpg', 'Мягкий шоколадно-ореховый вкус')">
-                <img src="https://raw.githubusercontent.com/l1nk3z/l1nk3zbot/main/zerno/africa.jpg" alt="Africa" class="grain-image">
-                <div class="grain-name">Africa</div>
-                <div class="grain-description">Шоколадно-ореховый</div>
-            </div>
-            <div class="grain-card" onclick="showGrainImage('America', 'https://raw.githubusercontent.com/l1nk3z/l1nk3zbot/main/zerno/america.jpg', 'Мягкий шоколадно-ореховый вкус')">
-                <img src="https://raw.githubusercontent.com/l1nk3z/l1nk3zbot/main/zerno/america.jpg" alt="America" class="grain-image">
-                <div class="grain-name">America</div>
-                <div class="grain-description">Шоколадно-ореховый</div>
-            </div>
-            <div class="grain-card" onclick="showGrainImage('Ethiopia Solomo', 'https://raw.githubusercontent.com/l1nk3z/l1nk3zbot/main/zerno/ethiopia_uraga_solomo.jpg', 'Мягкий шоколадно-ореховый вкус')">
-                <img src="https://raw.githubusercontent.com/l1nk3z/l1nk3zbot/main/zerno/ethiopia_uraga_solomo.jpg" alt="Ethiopia Solomo" class="grain-image">
-                <div class="grain-name">Ethiopia Solomo</div>
-                <div class="grain-description">Шоколадно-ореховый</div>
-            </div>
-            <div class="grain-card" onclick="showGrainImage('Twin Fin', 'https://raw.githubusercontent.com/l1nk3z/l1nk3zbot/main/zerno/twin_fin.jpg', 'Мягкий шоколадно-ореховый вкус')">
-                <img src="https://raw.githubusercontent.com/l1nk3z/l1nk3zbot/main/zerno/twin_fin.jpg" alt="Twin Fin" class="grain-image">
-                <div class="grain-name">Twin Fin</div>
-                <div class="grain-description">Шоколадно-ореховый</div>
-            </div>
-            <div class="grain-card" onclick="showGrainImage('Decaf', 'https://raw.githubusercontent.com/l1nk3z/l1nk3zbot/main/zerno/decaf.jpg', 'Мягкий шоколадно-ореховый вкус')">
-                <img src="https://raw.githubusercontent.com/l1nk3z/l1nk3zbot/main/zerno/decaf.jpg" alt="Decaf" class="grain-image">
-                <div class="grain-name">Decaf</div>
-                <div class="grain-description">Шоколадно-ореховый</div>
-            </div>
-            <div class="grain-card" onclick="showGrainImage('Ethiopia Uraga', 'https://raw.githubusercontent.com/l1nk3z/l1nk3zbot/main/zerno/ethiopia_uraga.jpg', 'Мягкий шоколадно-ореховый вкус')">
-                <img src="https://raw.githubusercontent.com/l1nk3z/l1nk3zbot/main/zerno/ethiopia_uraga.jpg" alt="Ethiopia Uraga" class="grain-image">
-                <div class="grain-name">Ethiopia Uraga</div>
-                <div class="grain-description">Шоколадно-ореховый</div>
-            </div>
-            <div class="grain-card" onclick="showGrainImage('Malawi Domira Bay', 'https://raw.githubusercontent.com/l1nk3z/l1nk3zbot/main/zerno/malawi_domira_bay.jpg', 'Мягкий шоколадно-ореховый вкус')">
-                <img src="https://raw.githubusercontent.com/l1nk3z/l1nk3zbot/main/zerno/malawi_domira_bay.jpg" alt="Malawi Domira Bay" class="grain-image">
-                <div class="grain-name">Malawi Domira Bay</div>
-                <div class="grain-description">Шоколадно-ореховый</div>
-            </div>
-        </div>
-
-        <!-- Настройка зерна -->
-        <div id="grain-settings-section" class="content-section">
-            <div class="section-title">📦 Настройка зерна</div>
-            <button class="menu-button back-button" onclick="goBack()">⬅️ Назад</button>
-            
-            <div class="grain-card" onclick="showGrainImage('Espresso', 'https://raw.githubusercontent.com/l1nk3z/l1nk3zbot/main/helpzerno/espresso.jpg', 'Таблица настройки эспрессо')">
-                <img src="https://raw.githubusercontent.com/l1nk3z/l1nk3zbot/main/helpzerno/espresso.jpg" alt="Espresso" class="grain-image">
-                <div class="grain-name">Espresso</div>
-                <div class="grain-description">Таблица настройки</div>
-            </div>
-            <div class="grain-card" onclick="showGrainImage('Ph', 'https://raw.githubusercontent.com/l1nk3z/l1nk3zbot/main/helpzerno/ph.jpg', 'Уровень Ph для идеальной настройки')">
-                <img src="https://raw.githubusercontent.com/l1nk3z/l1nk3zbot/main/helpzerno/ph.jpg" alt="Ph" class="grain-image">
-                <div class="grain-name">Ph</div>
-                <div class="grain-description">Уровень кислотности</div>
-            </div>
-            <div class="grain-card" onclick="showGrainImage('Descriptors', 'https://raw.githubusercontent.com/l1nk3z/l1nk3zbot/main/helpzerno/descriptors.jpg', 'Таблица всех основных дескрипторов')">
-                <img src="https://raw.githubusercontent.com/l1nk3z/l1nk3zbot/main/helpzerno/descriptors.jpg" alt="Descriptors" class="grain-image">
-                <div class="grain-name">Descriptors</div>
-                <div class="grain-description">Основные дескрипторы</div>
-            </div>
-            <div class="grain-card" onclick="showGrainImage('Extraction', 'https://raw.githubusercontent.com/l1nk3z/l1nk3zbot/main/helpzerno/extraction.jpg', 'Таблица экстракции кофе')">
-                <img src="https://raw.githubusercontent.com/l1nk3z/l1nk3zbot/main/helpzerno/extraction.jpg" alt="Extraction" class="grain-image">
-                <div class="grain-name">Extraction</div>
-                <div class="grain-description">Таблица экстракции</div>
-            </div>
-            <div class="grain-card" onclick="showGrainImage('Filter', 'https://raw.githubusercontent.com/l1nk3z/l1nk3zbot/main/helpzerno/filter.jpg', 'Таблица для настройки фильтра')">
-                <img src="https://raw.githubusercontent.com/l1nk3z/l1nk3zbot/main/helpzerno/filter.jpg" alt="Filter" class="grain-image">
-                <div class="grain-name">Filter</div>
-                <div class="grain-description">Настройка фильтра</div>
-            </div>
-        </div>
-
-        <!-- QR код -->
-        <div id="qr-section" class="content-section">
-            <div class="section-title">📷 Бот Сёрфа</div>
-            <button class="menu-button back-button" onclick="goBack()">⬅️ Назад</button>
-            
-            <div class="qr-container">
-                <div class="info">
-                    QR-код для быстрого доступа к боту
+    <!-- Экран входа -->
+    <div id="login-screen">
+        <h1>☕ Surf Coffee</h1>
+        <p class="sub">Доступ по логину и паролю</p>
+        <div class="login-card">
+            <form id="login-form">
+                <label for="login">Логин</label>
+                <input type="text" id="login" name="login" placeholder="Выдаёт администратор" autocomplete="username" required>
+                <label for="password">Пароль</label>
+                <input type="password" id="password" name="password" placeholder="Пароль от администратора" autocomplete="current-password" required>
+                <button type="submit" id="login-btn">Войти</button>
+                <div class="login-links">
+                    <a href="https://t.me/l1nk3z_bot?start=webdata" target="_blank" rel="noopener noreferrer">Забыли пароль?</a>
                 </div>
-                <!-- Замените на реальный QR-код -->
-                <img src="https://raw.githubusercontent.com/l1nk3z/l1nk3zbot/main/qr.jpg" alt="QR Code" class="qr-image">
-                <button class="phone-card" onclick="showPhone('QR-код', 'Отсканируйте QR-код для доступа к боту')">
-                    <div class="phone-name">📷 QR-код бота</div>
-                    <div class="phone-number">Наведите камеру на QR-код</div>
-                </button>
-            </div>
+                <p class="login-err" id="login-err">Неверный логин или пароль</p>
+            </form>
         </div>
-
-        <!-- Статус -->
-        <div id="status" class="status" style="display: none;"></div>
     </div>
 
-    <!-- Модальное окно для просмотра изображений -->
-    <div id="imageModal" class="image-modal">
-        <button class="modal-close" onclick="closeImageModal()">×</button>
-        <img id="modalImage" src="" alt="" class="modal-content">
-        <div id="modalTitle" class="modal-title"></div>
+    <!-- Приложение (после входа) -->
+    <div id="app-screen">
+        <div class="container">
+            <div id="main-menu-section" class="content-section" style="display: block;">
+                <div class="app-header">
+                    <h1>☕ Surf Coffee</h1>
+                    <p class="subtitle">Авторизованный доступ</p>
+                    <p class="whoami" id="whoami"></p>
+                </div>
+                <div class="info">Выберите раздел в меню ниже</div>
+                <button class="menu-button" onclick="showSection('phones')">📞 Номера телефонов</button>
+                <button class="menu-button" onclick="showSection('assistant')">💼 Помощник</button>
+                <button class="menu-button" onclick="showSection('grain')">📦 Все о зерне</button>
+                <button class="menu-button" onclick="showSection('qr')">📷 Бот Сёрфа</button>
+                <button class="menu-button logout-btn" onclick="logout()">Выйти</button>
+            </div>
+            <div id="phones-section" class="content-section">
+                <div class="section-title">📞 Номера</div>
+                <button class="menu-button back-button" onclick="goBack()">⬅️ Назад</button>
+                <button class="menu-button" onclick="showSection('barista')">👨‍🍳 Бариста</button>
+                <button class="menu-button" onclick="showSection('services')">🛡️ Спец Службы</button>
+                <button class="menu-button" onclick="showSection('coffeeshops')">☕ Кофейни Surf</button>
+            </div>
+            <div id="barista-section" class="content-section">
+                <div class="section-title">👨‍🍳 Бариста</div>
+                <button class="menu-button back-button" onclick="goBack()">⬅️ Назад</button>
+                <button class="phone-card" onclick="showPhone('Евгений','+79867227900')"><div class="phone-name">Евгений</div><div class="phone-number">+7 (986) 722-79-00</div></button>
+                <button class="phone-card" onclick="showPhone('Алина Менеджер','+79872631390')"><div class="phone-name">Алина Менеджер</div><div class="phone-number">+7 (987) 263-13-90</div></button>
+                <button class="phone-card" onclick="showPhone('Анджелика','+79376321662')"><div class="phone-name">Анджелика</div><div class="phone-number">+7 (937) 632-16-62</div></button>
+                <button class="phone-card" onclick="showPhone('Азалия','+79196843611')"><div class="phone-name">Азалия</div><div class="phone-number">+7 (919) 684-36-11</div></button>
+                <button class="phone-card" onclick="showPhone('Марсель','+79869045537')"><div class="phone-name">Марсель</div><div class="phone-number">+7 (986) 904-55-37</div></button>
+                <button class="phone-card" onclick="showPhone('Айнур','+79934130522')"><div class="phone-name">Айнур</div><div class="phone-number">+7 (993) 413-05-22</div></button>
+                <button class="phone-card" onclick="showPhone('Леонид','+79996097047')"><div class="phone-name">Леонид</div><div class="phone-number">+7 (999) 609-70-47</div></button>
+                <button class="phone-card" onclick="showPhone('Альбина','+79871888432')"><div class="phone-name">Альбина</div><div class="phone-number">+7 (987) 188-84-32</div></button>
+            </div>
+            <div id="services-section" class="content-section">
+                <div class="section-title">🛡️ Спец Службы</div>
+                <button class="menu-button back-button" onclick="goBack()">⬅️ Назад</button>
+                <button class="phone-card" onclick="showPhone('Кондиционер (Ильфир)','+79968451649')"><div class="phone-name">Кондиционер (Ильфир)</div><div class="phone-number">+7 (996) 845-16-49</div></button>
+                <button class="phone-card" onclick="showPhone('Сантехник (Виктор)','+79179205589')"><div class="phone-name">Сантехник (Виктор)</div><div class="phone-number">+7 (917) 920-55-89</div></button>
+                <button class="phone-card" onclick="showPhone('Электрик (Алмаз)','+79872679241')"><div class="phone-name">Электрик (Алмаз)</div><div class="phone-number">+7 (987) 267-92-41</div></button>
+                <button class="phone-card" onclick="showPhone('Мастер (Рафис)','+79503244151')"><div class="phone-name">Мастер (Рафис)</div><div class="phone-number">+7 (950) 324-41-51</div></button>
+            </div>
+            <div id="coffeeshops-section" class="content-section">
+                <div class="section-title">☕ Кофейни Surf</div>
+                <button class="menu-button back-button" onclick="goBack()">⬅️ Назад</button>
+                <button class="phone-card" onclick="showPhone('xSaveIn','+79033411616')"><div class="phone-name">xSaveIn</div><div class="phone-number">+7 (903) 341-16-16</div></button>
+                <button class="phone-card" onclick="showPhone('xMuses','+79376253318')"><div class="phone-name">xMuses</div><div class="phone-number">+7 (937) 625-33-18</div></button>
+                <button class="phone-card" onclick="showPhone('xLovers','+79050381776')"><div class="phone-name">xLovers</div><div class="phone-number">+7 (905) 038-17-76</div></button>
+                <button class="phone-card" onclick="showPhone('xKremlin','+79625602121')"><div class="phone-name">xKremlin</div><div class="phone-number">+7 (962) 560-21-21</div></button>
+                <button class="phone-card" onclick="showPhone('xJoe','+79600534780')"><div class="phone-name">xJoe</div><div class="phone-number">+7 (960) 053-47-80</div></button>
+                <button class="phone-card" onclick="showPhone('xItPark','+79061131245')"><div class="phone-name">xItPark</div><div class="phone-number">+7 (906) 113-12-45</div></button>
+                <button class="phone-card" onclick="showPhone('xIva','+79033199956')"><div class="phone-name">xIva</div><div class="phone-number">+7 (903) 319-99-56</div></button>
+                <button class="phone-card" onclick="showPhone('xCult','+79959419043')"><div class="phone-name">xCult</div><div class="phone-number">+7 (995) 941-90-43</div></button>
+                <button class="phone-card" onclick="showPhone('xLetskoy','+79053701170')"><div class="phone-name">xLetskoy</div><div class="phone-number">+7 (905) 370-11-70</div></button>
+                <button class="phone-card" onclick="showPhone('xUnofficial','+79692236226')"><div class="phone-name">xUnofficial</div><div class="phone-number">+7 (969) 223-62-26</div></button>
+                <button class="phone-card" onclick="showPhone('xInside','+79600817758')"><div class="phone-name">xInside</div><div class="phone-number">+7 (960) 081-77-58</div></button>
+                <button class="phone-card" onclick="showPhone('xKasatka','+79061231441')"><div class="phone-name">xKasatka</div><div class="phone-number">+7 (906) 123-14-41</div></button>
+                <button class="phone-card" onclick="showPhone('xMega','+79270486345')"><div class="phone-name">xMega</div><div class="phone-number">+7 (927) 048-63-45</div></button>
+                <button class="phone-card" onclick="showPhone('xSuite','+79600335154')"><div class="phone-name">xSuite</div><div class="phone-number">+7 (960) 033-51-54</div></button>
+                <button class="phone-card" onclick="showPhone('xKazanMall','+79677708131')"><div class="phone-name">xKazanMall</div><div class="phone-number">+7 (967) 770-81-31</div></button>
+                <button class="phone-card" onclick="showPhone('xArch','+79600465538')"><div class="phone-name">xArch</div><div class="phone-number">+7 (960) 046-55-38</div></button>
+                <button class="phone-card" onclick="showPhone('xNokka','+79871867794')"><div class="phone-name">xNokka</div><div class="phone-number">+7 (987) 186-77-94</div></button>
+            </div>
+            <div id="assistant-section" class="content-section">
+                <div class="section-title">💼 Помощник</div>
+                <button class="menu-button back-button" onclick="goBack()">⬅️ Назад</button>
+                <button class="menu-button" onclick="openLink('https://docs.google.com/spreadsheets/d/1WO1vzivTrDq2E7qVbyXkZWUaQty_3424uGM8uVspLWI/edit?usp=drivesdk')">📦 Кбжу</button>
+                <button class="menu-button" onclick="openLink('https://docs.google.com/spreadsheets/d/1osNe5k1iwYFbcvX_aU3B01YOwaCub28ThB73003OuBg/edit?usp=drivesdk')">📦 Состав десертов</button>
+                <button class="menu-button" onclick="openLink('https://docs.google.com/spreadsheets/d/1PyP-_4pgiz7Ok6eqfk2YU6yrhpkO2snUN1wZ7FqMMNI/edit?usp=drivesdk')">📦 График работы</button>
+                <button class="menu-button" onclick="openLink('https://library.surfcoffee.ru/trinity-harrogate-form/')">📦 Рекламация</button>
+            </div>
+            <div id="grain-section" class="content-section">
+                <div class="section-title">📦 Все о зерне</div>
+                <button class="menu-button back-button" onclick="goBack()">⬅️ Назад</button>
+                <button class="menu-button" onclick="showSection('grain-types')">📦 Виды зерна</button>
+                <button class="menu-button" onclick="showSection('grain-settings')">📦 Настройка</button>
+            </div>
+            <div id="grain-types-section" class="content-section">
+                <div class="section-title">📦 Виды зерна</div>
+                <button class="menu-button back-button" onclick="goBack()">⬅️ Назад</button>
+                <button class="menu-button" onclick="showSection('grain-espresso')">☕ Espresso</button>
+                <button class="menu-button" onclick="showSection('grain-filter')">☕ Filter</button>
+            </div>
+            <div id="grain-espresso-section" class="content-section">
+                <div class="section-title">☕ Espresso</div>
+                <button class="menu-button back-button" onclick="goBack()">⬅️ Назад</button>
+                <p class="grain-image-hint">Нажмите на карточку — фото откроется на весь экран</p>
+                <div class="grain-card" onclick="handleGrainCardClick(event,this,'Blend#2','Мягкий шоколадно-ореховый')"><img src="zerno/blend2.jpg" alt="Blend#2" class="grain-image" onerror="this.style.display='none'"><div class="grain-name">Blend#2</div><div class="grain-description">Шоколадно-ореховый</div></div>
+                <div class="grain-card" onclick="handleGrainCardClick(event,this,'Blend#3','Какао и карамель')"><img src="zerno/blend3.jpg" alt="Blend#3" class="grain-image" onerror="this.style.display='none'"><div class="grain-name">Blend#3</div><div class="grain-description">Какао и карамель</div></div>
+                <div class="grain-card" onclick="handleGrainCardClick(event,this,'Blend#4','Фруктово-цитрусовый')"><img src="zerno/blend4.jpg" alt="Blend#4" class="grain-image" onerror="this.style.display='none'"><div class="grain-name">Blend#4</div><div class="grain-description">Фруктово-цитрусовый</div></div>
+                <div class="grain-card" onclick="handleGrainCardClick(event,this,'Blend#5','Фруктово-ягодный')"><img src="zerno/blend5.jpg" alt="Blend#5" class="grain-image" onerror="this.style.display='none'"><div class="grain-name">Blend#5</div><div class="grain-description">Фруктово-ягодный</div></div>
+            </div>
+            <div id="grain-filter-section" class="content-section">
+                <div class="section-title">☕ Filter</div>
+                <button class="menu-button back-button" onclick="goBack()">⬅️ Назад</button>
+                <p class="grain-image-hint">Нажмите на карточку — фото откроется на весь экран</p>
+                <div class="grain-card" onclick="handleGrainCardClick(event,this,'Africa','Шоколадно-ореховый')"><img src="zerno/Africa.jpg" alt="Africa" class="grain-image" onerror="this.style.display='none'"><div class="grain-name">Africa</div><div class="grain-description">Шоколадно-ореховый</div></div>
+                <div class="grain-card" onclick="handleGrainCardClick(event,this,'America','Шоколадно-ореховый')"><img src="zerno/America.jpg" alt="America" class="grain-image" onerror="this.style.display='none'"><div class="grain-name">America</div><div class="grain-description">Шоколадно-ореховый</div></div>
+                <div class="grain-card" onclick="handleGrainCardClick(event,this,'Twin Fin','Шоколадно-ореховый')"><img src="zerno/TwinFin.jpg" alt="Twin Fin" class="grain-image" onerror="this.style.display='none'"><div class="grain-name">Twin Fin</div><div class="grain-description">Шоколадно-ореховый</div></div>
+                <div class="grain-card" onclick="handleGrainCardClick(event,this,'Decaf','Без кофеина')"><img src="zerno/Decaf.jpg" alt="Decaf" class="grain-image" onerror="this.style.display='none'"><div class="grain-name">Decaf</div><div class="grain-description">Без кофеина</div></div>
+                <div class="grain-card" onclick="handleGrainCardClick(event,this,'Ethiopia Uraga','Шоколадно-ореховый')"><img src="zerno/EthiopiaUraga.jpg" alt="Ethiopia Uraga" class="grain-image" onerror="this.style.display='none'"><div class="grain-name">Ethiopia Uraga</div><div class="grain-description">Шоколадно-ореховый</div></div>
+                <div class="grain-card" onclick="handleGrainCardClick(event,this,'Malawi Domira Bay','Шоколадно-ореховый')"><img src="zerno/MalawiDomiraBay.jpg" alt="Malawi Domira Bay" class="grain-image" onerror="this.style.display='none'"><div class="grain-name">Malawi Domira Bay</div><div class="grain-description">Шоколадно-ореховый</div></div>
+            </div>
+            <div id="grain-settings-section" class="content-section">
+                <div class="section-title">📦 Настройка</div>
+                <button class="menu-button back-button" onclick="goBack()">⬅️ Назад</button>
+                <p class="grain-image-hint">Нажмите на карточку — фото откроется на весь экран</p>
+                <div class="grain-card" onclick="handleGrainCardClick(event,this,'Espresso','Таблица настройки')"><img src="helpzerno/espresso.jpg" alt="Espresso" class="grain-image" onerror="this.style.display='none'"><div class="grain-name">Espresso</div><div class="grain-description">Таблица настройки</div></div>
+                <div class="grain-card" onclick="handleGrainCardClick(event,this,'Ph','Уровень Ph')"><img src="helpzerno/Ph.jpg" alt="Ph" class="grain-image" onerror="this.style.display='none'"><div class="grain-name">Ph</div><div class="grain-description">Уровень кислотности</div></div>
+                <div class="grain-card" onclick="handleGrainCardClick(event,this,'Descriptors','Дескрипторы')"><img src="helpzerno/Descriptors.jpg" alt="Descriptors" class="grain-image" onerror="this.style.display='none'"><div class="grain-name">Descriptors</div><div class="grain-description">Основные дескрипторы</div></div>
+                <div class="grain-card" onclick="handleGrainCardClick(event,this,'Extraction','Экстракция')"><img src="helpzerno/Extraction.jpg" alt="Extraction" class="grain-image" onerror="this.style.display='none'"><div class="grain-name">Extraction</div><div class="grain-description">Таблица экстракции</div></div>
+                <div class="grain-card" onclick="handleGrainCardClick(event,this,'Filter','Настройка фильтра')"><img src="helpzerno/filter.jpg" alt="Filter" class="grain-image" onerror="this.style.display='none'"><div class="grain-name">Filter</div><div class="grain-description">Настройка фильтра</div></div>
+            </div>
+            <div id="qr-section" class="content-section">
+                <div class="section-title">📷 Бот Сёрфа</div>
+                <button class="menu-button back-button" onclick="goBack()">⬅️ Назад</button>
+                <div class="qr-container">
+                    <div class="info">QR-код для доступа к боту</div>
+                    <img src="qr.jpg" alt="QR" class="qr-image" onclick="openPhotoViewer(this.src, 'QR бота')" onerror="this.style.display='none'">
+                </div>
+            </div>
+            <div id="status" class="status" style="display: none;"></div>
+        </div>
+    </div>
+
+    <div id="photo-viewer" class="photo-viewer" role="dialog" aria-modal="true" aria-hidden="true">
+        <div class="photo-viewer-title" id="photo-viewer-title"></div>
+        <img id="photo-viewer-img" src="" alt="">
+        <div class="photo-viewer-actions">
+            <button type="button" class="photo-viewer-btn photo-viewer-btn-open" id="photo-viewer-open-external">В браузере</button>
+            <button type="button" class="photo-viewer-btn photo-viewer-btn-close" id="photo-viewer-close">Закрыть</button>
+        </div>
     </div>
 
     <script>
-        // Инициализация Telegram Web App
-        let tg = null;
-        let history = ['main-menu']; // История навигации
-        
-        function initTelegramApp() {
-            if (window.Telegram && window.Telegram.WebApp) {
-                tg = window.Telegram.WebApp;
-                console.log('Telegram Web App initialized');
-                
-                // Расширяем на весь экран
-                tg.expand();
-                
-                // Настраиваем кнопку назад
-                updateBackButton();
-                
-            } else {
-                console.log('Debug mode - open in Telegram for full functionality');
+        var AUTH_STORAGE = 'webapp_auth';
+        var AUTH_LOGIN_STORAGE = 'webapp_login';
+        var tg = window.Telegram && window.Telegram.WebApp ? window.Telegram.WebApp : null;
+        var navHistory = ['main-menu'];
+        var photoViewerCurrentURL = '';
+
+        function resolveAssetURL(src) {
+            try { return new URL(src, window.location.href).href; } catch (e) { return src || ''; }
+        }
+
+        function openPhotoViewer(src, title) {
+            if (!src) return;
+            var url = resolveAssetURL(src);
+            photoViewerCurrentURL = url;
+            var el = document.getElementById('photo-viewer');
+            var img = document.getElementById('photo-viewer-img');
+            var t = document.getElementById('photo-viewer-title');
+            img.src = url;
+            img.alt = title || '';
+            t.textContent = title ? ('📷 ' + title) : 'Просмотр';
+            el.classList.add('is-open');
+            el.setAttribute('aria-hidden', 'false');
+            if (tg && tg.HapticFeedback && tg.HapticFeedback.impactOccurred) {
+                try { tg.HapticFeedback.impactOccurred('light'); } catch (e) {}
             }
         }
 
-        // Обновить кнопку назад
-        function updateBackButton() {
-            if (tg && tg.BackButton) {
-                if (history.length <= 1) {
-                    tg.BackButton.hide();
-                } else {
-                    tg.BackButton.show();
-                    tg.BackButton.onClick(goBack);
-                }
-            }
+        function closePhotoViewer() {
+            var el = document.getElementById('photo-viewer');
+            if (!el || !el.classList.contains('is-open')) return;
+            el.classList.remove('is-open');
+            el.setAttribute('aria-hidden', 'true');
+            document.getElementById('photo-viewer-img').removeAttribute('src');
+            photoViewerCurrentURL = '';
         }
 
-        // Показать раздел
-        function showSection(sectionId) {
-            // Добавляем в историю
-            history.push(sectionId);
-            
-            // Скрыть все разделы
-            const sections = document.querySelectorAll('.content-section');
-            sections.forEach(section => {
-                section.style.display = 'none';
-            });
-            
-            // Показать нужный раздел
-            const targetSection = document.getElementById(sectionId + '-section');
-            if (targetSection) {
-                targetSection.style.display = 'block';
-            } else {
-                console.error('Section not found:', sectionId + '-section');
-                // Если раздел не найден, возвращаемся назад
-                goBack();
+        function handleGrainCardClick(ev, card, name, desc) {
+            var img = card.querySelector('.grain-image');
+            if (img && img.src && window.getComputedStyle(img).display !== 'none') {
+                openPhotoViewer(img.src, name);
                 return;
             }
-            
-            // Обновить кнопку назад
-            updateBackButton();
-            
-            console.log('Current section:', sectionId);
-            console.log('History:', history);
+            showGrainInfo(name, desc);
         }
 
-        // Назад с историей
-        function goBack() {
-            console.log('Go back called, history length:', history.length);
-            
-            if (history.length > 1) {
-                // Удаляем текущий раздел из истории
-                history.pop();
-                // Получаем предыдущий раздел
-                const previousSection = history[history.length - 1];
-                console.log('Going back to:', previousSection);
-                
-                // Скрыть все разделы
-                const sections = document.querySelectorAll('.content-section');
-                sections.forEach(section => {
-                    section.style.display = 'none';
-                });
-                
-                // Показываем предыдущий раздел
-                const targetSection = document.getElementById(previousSection + '-section');
-                if (targetSection) {
-                    targetSection.style.display = 'block';
+        function initPhotoViewer() {
+            var pv = document.getElementById('photo-viewer');
+            var btnClose = document.getElementById('photo-viewer-close');
+            var btnOpen = document.getElementById('photo-viewer-open-external');
+            if (!pv || !btnClose || !btnOpen) return;
+            btnClose.addEventListener('click', function(e) { e.stopPropagation(); closePhotoViewer(); });
+            btnOpen.addEventListener('click', function(e) {
+                e.stopPropagation();
+                if (!photoViewerCurrentURL) return;
+                if (tg && tg.openLink) tg.openLink(photoViewerCurrentURL);
+                else window.open(photoViewerCurrentURL, '_blank');
+            });
+            pv.addEventListener('click', function(e) {
+                if (e.target === pv) closePhotoViewer();
+            });
+            document.getElementById('photo-viewer-img').addEventListener('click', function(e) { e.stopPropagation(); });
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') closePhotoViewer();
+            });
+        }
+
+        function getAuthApi() {
+            var base = (typeof AUTH_API_BASE !== 'undefined') ? AUTH_API_BASE : '';
+            return (base ? base.replace(/\/$/, '') : '') + '/api/auth';
+        }
+
+        function onLoad() {
+            if (sessionStorage.getItem(AUTH_STORAGE) === '1') {
+                document.getElementById('login-screen').style.display = 'none';
+                document.getElementById('app-screen').style.display = 'block';
+                setAuthorizedLoginLabel();
+                if (tg) { tg.ready(); tg.expand(); }
+                return;
+            }
+            document.getElementById('login-screen').style.display = 'flex';
+            document.getElementById('app-screen').style.display = 'none';
+        }
+
+        function setAuthorizedLoginLabel() {
+            var login = sessionStorage.getItem(AUTH_LOGIN_STORAGE) || '';
+            var label = document.getElementById('whoami');
+            if (!label) return;
+            label.textContent = login ? ('Вы вошли как: ' + login) : 'Вы вошли';
+        }
+
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            var login = document.getElementById('login').value.trim();
+            var password = document.getElementById('password').value;
+            var btn = document.getElementById('login-btn');
+            var err = document.getElementById('login-err');
+            err.style.display = 'none';
+            if (!login || !password) return;
+            btn.disabled = true;
+            fetch(getAuthApi(), {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ login: login, password: password })
+            }).then(function(r) {
+                if (r.ok) {
+                    sessionStorage.setItem(AUTH_STORAGE, '1');
+                    sessionStorage.setItem(AUTH_LOGIN_STORAGE, login);
+                    document.getElementById('login-screen').style.display = 'none';
+                    document.getElementById('app-screen').style.display = 'block';
+                    navHistory = ['main-menu'];
+                    showSection('main-menu', true);
+                    setAuthorizedLoginLabel();
+                    if (tg) { tg.ready(); tg.expand(); }
                 } else {
-                    console.error('Section not found:', previousSection + '-section');
-                    // Если раздел не найден, показываем главное меню
-                    document.getElementById('main-menu-section').style.display = 'block';
-                    history = ['main-menu'];
+                    err.style.display = 'block';
                 }
-            } else {
-                // Если история пуста, закрываем Web App
-                console.log('Closing Web App');
-                closeWebApp();
+            }).catch(function() {
+                err.style.display = 'block';
+            }).finally(function() { btn.disabled = false; });
+        });
+
+        function logout() {
+            sessionStorage.removeItem(AUTH_STORAGE);
+            sessionStorage.removeItem(AUTH_LOGIN_STORAGE);
+            navHistory = ['main-menu'];
+            document.getElementById('login-screen').style.display = 'flex';
+            document.getElementById('app-screen').style.display = 'none';
+        }
+
+        function updateBackButton() {
+            if (tg && tg.BackButton) {
+                if (navHistory.length <= 1) tg.BackButton.hide();
+                else { tg.BackButton.show(); tg.BackButton.onClick(goBack); }
             }
-            
-            // Обновить кнопку назад
+        }
+        function showSection(sectionId, noPush) {
+            if (noPush !== true) navHistory.push(sectionId);
+            var sections = document.querySelectorAll('#app-screen .content-section');
+            for (var i = 0; i < sections.length; i++) sections[i].style.display = 'none';
+            var el = document.getElementById(sectionId + '-section');
+            if (el) el.style.display = 'block';
             updateBackButton();
         }
-
-        // Показать номер телефона
+        function goBack() {
+            closePhotoViewer();
+            if (navHistory.length > 1) {
+                navHistory.pop();
+                showSection(navHistory[navHistory.length - 1], true);
+            } else if (tg && tg.close) tg.close();
+        }
         function showPhone(name, number) {
-            // Форматируем номер без лишних плюсов
-            const formattedNumber = formatPhone(number);
-            showStatus(`📞 ${name}\n📱 ${formattedNumber}`, 'success');
-            
-            // Копирование в буфер обмена (оригинальный номер без форматирования)
-            if (navigator.clipboard && number.startsWith('+')) {
-                navigator.clipboard.writeText(number).then(() => {
-                    console.log('Phone number copied to clipboard:', number);
-                });
-            }
+            var formatted = number.replace(/(\+7)(\d{3})(\d{3})(\d{2})(\d{2})/, '$1 ($2) $3-$4-$5');
+            showStatus('📞 ' + name + '\n📱 ' + formatted, 'success');
+            if (navigator.clipboard && number.indexOf('+') === 0) navigator.clipboard.writeText(number);
         }
-
-        // Форматирование номера телефона
-        function formatPhone(phone) {
-            // Убираем все нецифровые символы кроме плюса в начале
-            let cleanPhone = phone.replace(/[^\d+]/g, '');
-            
-            // Убираем лишние плюсы
-            if (cleanPhone.startsWith('++')) {
-                cleanPhone = '+' + cleanPhone.substring(2);
-            }
-            
-            // Форматируем номер
-            if (cleanPhone.startsWith('+7') && cleanPhone.length === 12) {
-                return cleanPhone.replace(/(\+7)(\d{3})(\d{3})(\d{2})(\d{2})/, '$1 ($2) $3-$4-$5');
-            }
-            
-            return cleanPhone;
+        function showGrainInfo(name, desc) { showStatus('📦 ' + name + '\n' + desc, 'success'); }
+        function showStatus(msg, type) {
+            var s = document.getElementById('status');
+            s.textContent = msg;
+            s.className = 'status ' + type;
+            s.style.display = 'block';
+            setTimeout(function() { s.style.display = 'none'; }, 3000);
         }
-
-        // Показать изображение зерна в полноэкранном режиме
-        function showGrainImage(name, imageUrl, description) {
-            const modal = document.getElementById('imageModal');
-            const modalImage = document.getElementById('modalImage');
-            const modalTitle = document.getElementById('modalTitle');
-            
-            modalImage.src = imageUrl;
-            modalImage.alt = name;
-            modalTitle.textContent = `${name} - ${description}`;
-            
-            modal.style.display = 'flex';
-            
-            // Блокируем прокрутку основного контента
-            document.body.style.overflow = 'hidden';
-        }
-
-        // Закрыть модальное окно с изображением
-        function closeImageModal() {
-            const modal = document.getElementById('imageModal');
-            modal.style.display = 'none';
-            
-            // Восстанавливаем прокрутку
-            document.body.style.overflow = 'auto';
-        }
-
-        // Закрытие по клику вне изображения
-        document.getElementById('imageModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeImageModal();
-            }
-        });
-
-        // Закрытие по ESC
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeImageModal();
-            }
-        });
-
-        // Открыть ссылку
         function openLink(url) {
-            if (tg && tg.openLink) {
-                tg.openLink(url);
-            } else {
-                window.open(url, '_blank');
-            }
+            if (tg && tg.openLink) tg.openLink(url);
+            else window.open(url, '_blank');
         }
-
-        // Закрытие Web App
-        function closeWebApp() {
-            if (tg && tg.close) {
-                tg.close();
-            }
-        }
-
-        // Показать статус
-        function showStatus(message, type) {
-            const statusDiv = document.getElementById('status');
-            statusDiv.textContent = message;
-            statusDiv.className = 'status ' + type;
-            statusDiv.style.display = 'block';
-            
-            setTimeout(() => {
-                statusDiv.style.display = 'none';
-            }, 3000);
-        }
-
-        // Инициализация при загрузке страницы
-        document.addEventListener('DOMContentLoaded', initTelegramApp);
+        document.addEventListener('DOMContentLoaded', function() {
+            onLoad();
+            initPhotoViewer();
+        });
     </script>
 </body>
 </html>
