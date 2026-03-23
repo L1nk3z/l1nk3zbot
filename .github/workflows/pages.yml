@@ -32,6 +32,7 @@ jobs:
           if [ -d "zerno" ]; then cp -R zerno _site/zerno; fi
           if [ -d "helpzerno" ]; then cp -R helpzerno _site/helpzerno; fi
           if [ -f "qr.jpg" ]; then cp qr.jpg _site/qr.jpg; fi
+          if [ -f "web_users.json" ]; then cp web_users.json _site/web_users.json; fi
           if [ -f ".nojekyll" ]; then cp .nojekyll _site/.nojekyll; else touch _site/.nojekyll; fi
 
       - name: Upload Pages artifact
