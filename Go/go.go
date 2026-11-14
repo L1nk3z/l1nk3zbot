@@ -175,7 +175,7 @@ func handleWebAuth(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	bot, err := tgbotapi.NewBotAPI("5768510658:AAFu6-RdjdnSdCGWZiWkqNEOzN-3u3nqVIA")
+	bot, err := tgbotapi.NewBotAPI("")
 	if err != nil {
 		log.Panic(err)
 	}
