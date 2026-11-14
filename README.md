@@ -39,7 +39,9 @@ Go, Telegram Bot API, Telegram Mini App (WebApp),  GitHub Actions
 2. Склонируйте репозиторий:
    ```bash
    git clone https://github.com/L1nk3z/l1nk3zbot.git
-   cd l1nk3zbot
+   cd l1nk3zbot/Go
+   cp .env.example .env
+   go run .
    ```
 3. Скопируйте `.env.example` в `.env` и заполните значения
 4. Запустите:
