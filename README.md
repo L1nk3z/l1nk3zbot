@@ -35,7 +35,7 @@ Go, Telegram Bot API, Telegram Mini App (WebApp),  GitHub Actions
 
 ## Запуск
 
-1. Установите Go [версия]
+1. Установите Go 
 2. Склонируйте репозиторий:
    ```bash
    git clone https://github.com/L1nk3z/l1nk3zbot.git
@@ -52,7 +52,7 @@ Go, Telegram Bot API, Telegram Mini App (WebApp),  GitHub Actions
 | Переменная | Описание |
 |------------|----------|
 | `BOT_TOKEN` | Токен бота от @BotFather |
-| `[ДРУГАЯ]` | [описание] |
+| `` |  |
 
 ## Планы
 
@@ -62,4 +62,4 @@ Go, Telegram Bot API, Telegram Mini App (WebApp),  GitHub Actions
 
 ## Контакты
 
-Telegram: [@l1nk3z]
+Telegram: @l1nk3z
