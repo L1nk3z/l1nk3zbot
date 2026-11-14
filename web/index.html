@@ -68,6 +68,7 @@
             cursor: pointer;
         }
         .login-card button:disabled { opacity: 0.6; cursor: not-allowed; }
+        .login-card #demoBtn { margin-top: 10px; background: transparent; color: #d4b37a; border: 1px solid #4a3020; font-weight: 500; }
         .login-err {
             font-size: 13px;
             color: #d4a574;
@@ -218,6 +219,7 @@
                 <label for="password">Пароль</label>
                 <input type="password" id="password" name="password" placeholder="Пароль от администратора" autocomplete="current-password" required>
                 <button type="submit" id="login-btn">Войти</button>
+                <button id="demoBtn" type="button">Посмотреть демо</button>
                 <div class="login-links">
                     <a href="https://t.me/l1nk3z_bot?start=webdata" target="_blank" rel="noopener noreferrer">Забыли пароль?</a>
                 </div>
@@ -485,12 +487,21 @@
                     if (tg) { tg.ready(); tg.expand(); }
                 })
                 .catch(function() {
-                    err.textContent = 'Не удалось загрузить web_users.json. Проверьте, что файл есть в репозитории и опубликован на сайте.';
+                    err.textContent = 'Вход по логину сейчас недоступен. Нажмите «Посмотреть демо», чтобы открыть приложение.';
                     err.style.display = 'block';
                 })
                 .finally(function() { btn.disabled = false; });
         });
-
+document.getElementById('demoBtn').addEventListener('click', function() {
+    sessionStorage.setItem(AUTH_STORAGE, '1');
+    sessionStorage.setItem(AUTH_LOGIN_STORAGE, 'demo');
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('app-screen').style.display = 'block';
+    navHistory = ['main-menu'];
+    showSection('main-menu', true);
+    setAuthorizedLoginLabel();
+    if (tg) { tg.ready(); tg.expand(); }
+});
         function logout() {
             sessionStorage.removeItem(AUTH_STORAGE);
             sessionStorage.removeItem(AUTH_LOGIN_STORAGE);
