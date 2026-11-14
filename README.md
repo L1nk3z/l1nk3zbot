@@ -8,12 +8,12 @@ Telegram-бот и мини-приложение для сотрудников �
 
 | Бот | Мини-приложение |
 |-----|-----------------|
-| ![Main menu](docs/main.png) | ![Login](docs/login.png) |
-| ![Admin](docs/admin.png) | ![Main menu](docs/main.png) |
-| ![Info](docs/info.png) | ![Help-zerno](docs/help-zerno.png) |
-|                        | ![Helper](docs/helper.png) |
-|                        | ![Zerno](docs/zerno.png) |
-|                        | ![Qr](docs/qr.png) |
+| ![Main menu](docs/Bot/main.png) | ![Login](docs/Mini-app/login.png) |
+| ![Admin](docs/Bot/admin.png) | ![Main menu](docs/Mini-app/main.png) |
+| ![Info](docs/Bot/info.png) | ![Help-zerno](docs/Mini-app/help-zerno.png) |
+|                        | ![Helper](docs/Mini-app/helper.png) |
+|                        | ![Zerno](docs/Mini-app/zerno.png) |
+|                        | ![Qr](docs/Mini-app/qr.png) |
 
 ## Возможности
 
