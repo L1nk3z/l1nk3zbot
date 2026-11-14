@@ -432,46 +432,46 @@ func main() {
 			}
 
 			phoneNumbers := map[string]string{
-				"phone_xSaveIn":     "+79033411616",
-				"phone_xMuses":      "+79376253318",
-				"phone_xLovers":     "+79050381776",
-				"phone_xKremlin":    "+79625602121",
-				"phone_xJoe":        "+79600534780",
-				"phone_xItPark":     "+79061131245",
-				"phone_xIva":        "+79033199956",
-				"phone_xCult":       "+79959419043",
-				"phone_xLetskoy":    "+79053701170",
-				"phone_xUnofficial": "+79692236226",
-				"phone_xInside":     "+79600817758",
-				"phone_xKasatka":    "+79061231441",
-				"phone_xMega":       "+79270486345",
-				"phone_xSuite":      "+79600335154",
-				"phone_xKazanMall":  "+79677708131",
-				"phone_xArch":       "+79600465538",
-				"phone_xNokka":      "+79871867794",
+				"phone_xSaveIn":     "+",
+				"phone_xMuses":      "+",
+				"phone_xLovers":     "+",
+				"phone_xKremlin":    "+",
+				"phone_xJoe":        "+",
+				"phone_xItPark":     "+",
+				"phone_xIva":        "+",
+				"phone_xCult":       "+",
+				"phone_xLetskoy":    "+",
+				"phone_xUnofficial": "+",
+				"phone_xInside":     "+",
+				"phone_xKasatka":    "+",
+				"phone_xMega":       "+",
+				"phone_xSuite":      "+",
+				"phone_xKazanMall":  "+",
+				"phone_xArch":       "+",
+				"phone_xNokka":      "+",
 			}
 			phoneBarista := map[string]string{
-				"phone_Evgeiny":     "+79867227900",
-				"phone_Alina(meng)": "+79872631390",
-				"phone_Alina(mlad)": "+79965718940",
-				"phone_Angelika":    "+79376321662",
-				"phone_Azalia":      "+79196843611",
-				"phone_Marsel":      "+79869045537",
-				"phone_Nastya":      "+79879625874",
-				"phone_Ainyr":       "+79934130522",
-				"phone_Leonid":      "+79996097047",
-				"phone_Albina":      "+79871888432",
-				"phone_Alina(zel)":  "+79613731150",
-				"phone_Sereja":      "+79677792426",
+				"phone_Evgeiny":     "+",
+				"phone_Alina(meng)": "+",
+				"phone_Alina(mlad)": "+",
+				"phone_Angelika":    "++",
+				"phone_Azalia":      "++",
+				"phone_Marsel":      "++",
+				"phone_Nastya":      "++",
+				"phone_Ainyr":       "++",
+				"phone_Leonid":      "++",
+				"phone_Albina":      "++",
+				"phone_Alina(zel)":  "++",
+				"phone_Sereja":      "++",
 			}
 
 			phoneSlyzb := map[string]string{
-				"phone_Oxrana":     "+79600595900",
-				"phone_Xolodilnik": "+79968451649",
-				"phone_Santexkin":  "+79179205589",
-				"phone_Electric":   "+79872679241",
-				"phone_Master":     "+79503244151",
-				"phone_ledgen":     "+79619333552",
+				"phone_Oxrana":     "++",
+				"phone_Xolodilnik": "++",
+				"phone_Santexkin":  "++",
+				"phone_Electric":   "++",
+				"phone_Master":     "+",
+				"phone_ledgen":     "++",
 			}
 			Baristahelp := map[string]string{
 				"help_kbzy":   "https://docs.google.com/spreadsheets/d/1WO1vzivTrDq2E7qVbyXkZWUaQty_3424uGM8uVspLWI/edit?usp=drivesdk",
@@ -523,7 +523,7 @@ func main() {
 				case "phone_Alina(mlad)":
 					name = "Алина Младшая"
 				case "phone_Angelika":
-					name = "Анджелика"
+					name = "Анжелика"
 				case "phone_Azalia":
 					name = "Азалия"
 				case "phone_Marsel":
