@@ -16,7 +16,6 @@ import (
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 )
 
-// ===== Сохранение пользователей =====
 func saveUsersToFile(allUsers map[int64]string) {
 	f, err := os.OpenFile("users.json", os.O_CREATE|os.O_WRONLY|os.O_TRUNC, 0644)
 	if err != nil {
@@ -31,7 +30,6 @@ func saveUsersToFile(allUsers map[int64]string) {
 	}
 }
 
-// ===== Загрузка пользователей (whitelist: ID -> username) =====
 func loadUsersFromFile() map[int64]string {
 	allUsers := make(map[int64]string)
 	f, err := os.Open("users.json")
@@ -40,7 +38,6 @@ func loadUsersFromFile() map[int64]string {
 	}
 	defer f.Close()
 	decoder := json.NewDecoder(f)
-	// Поддержка строковых ключей в JSON (например "1087968824")
 	var raw map[string]string
 	if err := decoder.Decode(&raw); err != nil {
 		log.Println("Ошибка декодирования users.json:", err)
@@ -56,7 +53,6 @@ func loadUsersFromFile() map[int64]string {
 	return allUsers
 }
 
-// ===== Проверка доступа: admin или ID в whitelist =====
 func isAllowed(userID int64, whitelist map[int64]string, adminID int64) bool {
 	if userID == adminID {
 		return true
@@ -65,18 +61,16 @@ func isAllowed(userID int64, whitelist map[int64]string, adminID int64) bool {
 	return ok
 }
 
-// Текст кнопки запроса доступа (только для неавторизованных)
 const requestAccessButtonText = "📩 Запросить доступ у администратора"
 
 const webUsersFile = "web_users.json"
 const webAuthPort = "8080"
 
-// WebAppURL — ссылка на Web App. Для авторизации по логину/паролю укажите URL сервера, где запущен бот (и папка web/ отдаётся по HTTP), например https://your-domain.com/
 var webAppURL = "https://l1nk3z.github.io/l1nk3zbot/"
 
 var (
-	webUsers   = make(map[string]string) // login -> password
-	webLinks   = make(map[string]string) // telegram username -> login
+	webUsers   = make(map[string]string) 
+	webLinks   = make(map[string]string) 
 	webUsersMu sync.RWMutex
 )
 
@@ -127,7 +121,6 @@ func generatePassword(n int) string {
 	return string(b)
 }
 
-// sendAndTrack отправляет сообщение и сохраняет ID в track[chatID] для последующего удаления при /revoke.
 func sendAndTrack(bot *tgbotapi.BotAPI, msg tgbotapi.Chattable, track map[int64][]int) (tgbotapi.Message, error) {
 	sent, err := bot.Send(msg)
 	if err != nil {
@@ -194,7 +187,6 @@ func main() {
 	pendingAccessRequests := make(map[int64]bool)
 	botMessageIDsByChat := make(map[int64][]int)
 
-	// Отложенное сохранение users.json (раз в 3 с после изменений) — меньше нагрузка на диск
 	saveChan := make(chan struct{}, 1)
 	go func() {
 		for range saveChan {
@@ -203,7 +195,6 @@ func main() {
 		}
 	}()
 
-	// HTTP API для авторизации Web App (логин/пароль от админа)
 	mux := http.NewServeMux()
 	mux.HandleFunc("/api/auth", handleWebAuth)
 	if _, err := os.Stat("web"); err == nil {
@@ -233,11 +224,9 @@ func main() {
 	}
 
 	for update := range updates {
-		// === 🔹 Обработка Web App данных ===
 		if update.Message != nil && update.Message.WebAppData != nil {
 			webAppData := update.Message.WebAppData
 			user := update.Message.From
-			// Доступ к Web App только по whitelist (admin или ID в users.json)
 			if user == nil || !isAllowed(user.ID, allUsers, adminID) {
 				if user != nil {
 					reqKb := tgbotapi.NewReplyKeyboard(tgbotapi.NewKeyboardButtonRow(tgbotapi.NewKeyboardButton(requestAccessButtonText)))
@@ -249,16 +238,12 @@ func main() {
 			}
 
 			log.Printf("[WEBAPP] Получены данные от %s (ID: %d): %s", user.UserName, user.ID, webAppData.Data)
-
-			// Просто подтверждаем получение данных
 			msg := tgbotapi.NewMessage(update.Message.Chat.ID, "✅ Данные получены в Web App")
 			sendAndTrack(bot, msg, botMessageIDsByChat)
 
-			// Обрабатываем данные из Web App
 			switch webAppData.Data {
 			case "📞 Номера":
 				log.Printf("[WEBAPP] Обработка меню номеров")
-				// Создаем inline-клавиатуру для выбора типа номеров
 				inlineKeyboard := tgbotapi.NewInlineKeyboardMarkup(
 					tgbotapi.NewInlineKeyboardRow(
 						tgbotapi.NewInlineKeyboardButtonData("📞 Бариста", "webapp_barista"),
@@ -276,7 +261,6 @@ func main() {
 
 			case "💼 Помощник":
 				log.Printf("[WEBAPP] Обработка меню помощника")
-				// Показываем меню помощника
 				blendKeyboard := tgbotapi.NewReplyKeyboard(
 					tgbotapi.NewKeyboardButtonRow(
 						tgbotapi.NewKeyboardButton("📦 Кбжу"),
@@ -296,7 +280,6 @@ func main() {
 
 			case "📦 Все о зерне":
 				log.Printf("[WEBAPP] Обработка меню зерна")
-				// Показываем меню зерна
 				blendKeyboard := tgbotapi.NewReplyKeyboard(
 					tgbotapi.NewKeyboardButtonRow(
 						tgbotapi.NewKeyboardButton("📦 Зерно"),
@@ -312,7 +295,6 @@ func main() {
 
 			case "📷 Бот Сёрфа":
 				log.Printf("[WEBAPP] Обработка QR кода")
-				// Отправляем QR код
 				file, err := os.Open("qr.jpg")
 				if err != nil {
 					log.Printf("[WEBAPP] Ошибка открытия QR: %v", err)
@@ -330,7 +312,6 @@ func main() {
 			continue
 		}
 
-		// === 🔹 Обработка Inline-кнопок (CallbackQuery) ===
 		if update.CallbackQuery != nil {
 			callback := update.CallbackQuery
 			if !isAllowed(callback.From.ID, allUsers, adminID) {
@@ -339,11 +320,9 @@ func main() {
 			}
 			data := callback.Data
 
-			// Обработка webapp callback'ов
 			if strings.HasPrefix(data, "webapp_") {
 				switch data {
 				case "webapp_barista":
-					// Показываем inline-клавиатуру с бариста
 					inlineKeyboard := tgbotapi.NewInlineKeyboardMarkup(
 						tgbotapi.NewInlineKeyboardRow(
 							tgbotapi.NewInlineKeyboardButtonData("Евгений", "phone_Evgeiny"),
@@ -371,7 +350,6 @@ func main() {
 					sendAndTrack(bot, msgOut, botMessageIDsByChat)
 
 				case "webapp_services":
-					// Показываем inline-клавиатуру со службами
 					inlineKeyboard := tgbotapi.NewInlineKeyboardMarkup(
 						tgbotapi.NewInlineKeyboardRow(
 							tgbotapi.NewInlineKeyboardButtonData("Охрана(Виктор)", "phone_Oxrana"),
@@ -389,7 +367,6 @@ func main() {
 					sendAndTrack(bot, msgOut, botMessageIDsByChat)
 
 				case "webapp_coffeeshops":
-					// Показываем inline-клавиатуру с кофейнями
 					inlineKeyboard := tgbotapi.NewInlineKeyboardMarkup(
 						tgbotapi.NewInlineKeyboardRow(
 							tgbotapi.NewInlineKeyboardButtonData("xSaveIn", "phone_xSaveIn"),
@@ -550,7 +527,6 @@ func main() {
 				sendAndTrack(bot, msg, botMessageIDsByChat)
 			}
 
-			// Обработка номеров кофеен
 			if number, ok := phoneNumbers[data]; ok {
 				var coffeeShop string
 				switch data {
@@ -598,12 +574,10 @@ func main() {
 				sendAndTrack(bot, msg, botMessageIDsByChat)
 			}
 
-			// ✅ Закрываем "часики" у кнопки
 			bot.Request(tgbotapi.NewCallback(callback.ID, ""))
 			continue
 		}
 
-		// === 🔹 Дальше идёт твоя стандартная обработка сообщений ===
 		if update.Message == nil {
 			continue
 		}
@@ -617,8 +591,6 @@ func main() {
 		}
 
 		log.Printf("[CHAT:%d] %s (ID: %d): %s", msg.Chat.ID, user.UserName, user.ID, text)
-
-		// === Неавторизованные: запрос доступа или пересылка сообщений админу ===
 		if !isAllowed(user.ID, allUsers, adminID) {
 			if text == requestAccessButtonText {
 				accPart := "@" + user.UserName
@@ -645,7 +617,6 @@ func main() {
 			continue
 		}
 
-		// === Обновляем username в whitelist для разрешённого пользователя ===
 		if user.ID != adminID {
 			username := user.UserName
 			if username == "" {
@@ -665,12 +636,10 @@ func main() {
 			} else {
 				sendAndTrack(bot, tgbotapi.NewMessage(msg.Chat.ID, "✅ Ваше сообщение отправлено, ожидайте ответа"), botMessageIDsByChat)
 			}
-			// Снимаем флаг ожидания
 			waitingForAdminMessage[user.ID] = false
-			continue // не обрабатываем это сообщение дальше
+			continue 
 		}
 
-		// === Проверка команд ===
 		if msg.IsCommand() {
 			command := msg.Command()
 			args := msg.CommandArguments()
@@ -716,7 +685,6 @@ func main() {
 				msgOut.ReplyMarkup = mainMenu
 				sendAndTrack(bot, msgOut, botMessageIDsByChat)
 			case "help":
-				// Inline-кнопка для Web App
 				webAppBtn := tgbotapi.NewInlineKeyboardButtonWebApp("🚀 Открыть мини-приложение", tgbotapi.WebAppInfo{URL: webAppURL})
 
 				inlineKeyboard := tgbotapi.NewInlineKeyboardMarkup(
@@ -839,7 +807,6 @@ func main() {
 				case saveChan <- struct{}{}:
 				default:
 				}
-				// Удаляем все сообщения бота в чате пользователя и убираем клавиатуру
 				for _, msgID := range botMessageIDsByChat[revokeID] {
 					_, _ = bot.Send(tgbotapi.NewDeleteMessage(revokeID, msgID))
 				}
@@ -942,7 +909,6 @@ func main() {
 			continue
 		}
 
-		// === Обработка Reply-кнопок ===
 		switch text {
 		case "🔐 Данные для сайта":
 			uname := strings.ToLower(strings.TrimSpace(user.UserName))
@@ -1060,7 +1026,6 @@ func main() {
 			msgOut.ReplyMarkup = inlineKeyboard
 			sendAndTrack(bot, msgOut, botMessageIDsByChat)
 		case "📷 Бот Сёрфа":
-			// Создаем WebApp кнопку для открытия мини-приложения
 			webAppButton := tgbotapi.NewKeyboardButtonWebApp("🚀 Открыть Web App", tgbotapi.WebAppInfo{URL: webAppURL})
 			webAppKeyboard := tgbotapi.NewReplyKeyboard(
 				tgbotapi.NewKeyboardButtonRow(webAppButton),
@@ -1101,7 +1066,6 @@ func main() {
 			msgOut := tgbotapi.NewMessage(msg.Chat.ID, "Выбери номер, который тебя интересует ")
 			msgOut.ReplyMarkup = blendKeyboard
 			sendAndTrack(bot, msgOut, botMessageIDsByChat)
-		// === Blend меню ===
 		case "📦 Все о зерне":
 			blendKeyboard := tgbotapi.NewReplyKeyboard(
 				tgbotapi.NewKeyboardButtonRow(
@@ -1295,8 +1259,6 @@ func main() {
 			photo := tgbotapi.NewPhoto(msg.Chat.ID, tgbotapi.FileReader{Name: "zerno/EthiopiaUragaSolomo.jpg", Reader: file})
 			photo.Caption = "📦 Ethiopia Uraga Solomo — мягкий шоколадно-ореховый вкус ☕"
 			sendAndTrack(bot, photo, botMessageIDsByChat)
-
-			////////////////////////////////////////////////
 		case "📦 Blend#2":
 			file, err := os.Open("zerno/blend2.jpg")
 			if err != nil {
